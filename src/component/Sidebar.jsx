@@ -1,22 +1,30 @@
 import React from 'react';
-import Box from '@mui/material/Box';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
 
-import HomeIcon from '@mui/icons-material/Home';
-import SearchIcon from '@mui/icons-material/Search';
-import LiveTvIcon from '@mui/icons-material/LiveTv';
-import MovieIcon from '@mui/icons-material/Movie';
-import SportsSoccerIcon from '@mui/icons-material/SportsSoccer';
-import FlashOnIcon from '@mui/icons-material/FlashOn';
-import CategoryIcon from '@mui/icons-material/Category';
-import PersonIcon from '@mui/icons-material/Person';
+import { useState } from 'react';
+
+import {
+    Box,
+    List,
+    ListItem,
+    ListItemButton,
+    ListItemIcon,
+    ListItemText
+} from '@mui/material';
+
+import {
+    Home as HomeIcon,
+    Search as SearchIcon,
+    LiveTv as LiveTvIcon,
+    Movie as MovieIcon,
+    SportsSoccer as SportsSoccerIcon,
+    FlashOn as FlashOnIcon,
+    Category as CategoryIcon,
+    Person as PersonIcon,
+} from '@mui/icons-material';
+
 import logo from '../assets/logo.png';
 
-const drawerWidthCollapsed = 60;
+const drawerWidthCollapsed = 70;
 const drawerWidthExpanded = 240;
 
 const menuItems = [
@@ -31,16 +39,15 @@ const menuItems = [
 ];
 
 export default function Sidebar() {
-    const [hovered, setHovered] = React.useState(false);
+    const [hovered, setHovered] = useState(false);
 
     return (
         <>
-            {/* Top-left logo */}
             <Box
                 sx={{
                     position: 'fixed',
                     top: 30,
-                    left: 15,
+                    left: 7,
                     zIndex: 3000,
                 }}
             >
@@ -55,7 +62,6 @@ export default function Sidebar() {
                 />
             </Box>
 
-            {/* Sidebar */}
             <Box
                 onMouseEnter={() => setHovered(true)}
                 onMouseLeave={() => setHovered(false)}
@@ -66,7 +72,7 @@ export default function Sidebar() {
                     height: 'auto',
                     position: 'fixed',
                     top: '50%',
-                    left: 0,
+                    left: 10,
                     transform: 'translateY(-50%)',
                     bgcolor: '#0f1014',
                     color: 'rgba(255, 255, 255, 0.87)',
@@ -78,6 +84,7 @@ export default function Sidebar() {
                     maxHeight: '90vh',
                     minHeight: '300px',
                     overflowY: 'auto',
+
                 }}
             >
                 <List>
@@ -85,11 +92,24 @@ export default function Sidebar() {
                         <ListItem key={item.text} disablePadding sx={{ display: 'block' }}>
                             <ListItemButton
                                 sx={{
-                                    minHeight: 48,
+                                    minHeight: 68,
                                     justifyContent: hovered ? 'initial' : 'center',
-                                    px: 4,
+                                    px: 5,
                                     transition: 'all 0.2s',
+                                    '&:hover': {
+                                        color: '#fff',
+                                        fontWeight: 'bold',
+                                        transform: 'scale(1.05)',
+                                        '& .MuiListItemIcon-root': {
+                                            color: '#fff',
+                                        },
+                                        '& .MuiListItemText-primary': {
+                                            fontWeight: 'bold',
+                                        },
+                                    },
                                 }}
+
+
                             >
                                 <ListItemIcon
                                     sx={{
@@ -97,12 +117,15 @@ export default function Sidebar() {
                                         mr: hovered ? 2 : 'auto',
                                         justifyContent: 'center',
                                         color: 'inherit',
+                                        fontSize: '1.3rem',
+                                        '& svg': {
+                                            fontSize: '2.3rem',
+                                        },
                                     }}
                                 >
                                     {item.icon}
                                 </ListItemIcon>
 
-                                {/* Smoothly show/hide text */}
                                 <Box
                                     sx={{
                                         opacity: hovered ? 1 : 0,
@@ -110,10 +133,15 @@ export default function Sidebar() {
                                         overflow: 'hidden',
                                         whiteSpace: 'nowrap',
                                         transition: 'opacity 0.3s ease, max-width 0.3s ease',
+                                        '& .MuiListItemText-primary': {
+                                            fontSize: '1.3rem', 
+                                            transition: 'all 0.3s ease',
+                                        },
                                     }}
                                 >
                                     <ListItemText primary={item.text} />
                                 </Box>
+
                             </ListItemButton>
                         </ListItem>
                     ))}
