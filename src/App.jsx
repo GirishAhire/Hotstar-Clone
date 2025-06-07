@@ -1,14 +1,16 @@
-import './App.css'
-import Button from '@mui/material/Button';
+import React from 'react';
+import './App.css';
+import Sidebar from './component/Sidebar';
 
 function App() {
-
   return (
+    <div>
+      
+      <Sidebar />
 
-    <>
-      <Button variant="contained">Hello world</Button>
-    </>
-  )
+    </div>
+  );
 }
 
-export default App
+
+export default App;
