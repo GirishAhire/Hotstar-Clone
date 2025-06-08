@@ -12,34 +12,43 @@ import {
 } from '@mui/material';
 
 import {
-    Home as HomeIcon,
-    Search as SearchIcon,
-    LiveTv as LiveTvIcon,
-    Movie as MovieIcon,
-    SportsSoccer as SportsSoccerIcon,
-    FlashOn as FlashOnIcon,
-    Category as CategoryIcon,
-    Person as PersonIcon,
+    Home,
+    Search,
+    LiveTv,
+    Movie,
+    SportsSoccer,
+    FlashOn,
+    Category,
+    Person,
 } from '@mui/icons-material';
 
 import logo from '../assets/logo.png';
 
-const drawerWidthCollapsed = 70;
-const drawerWidthExpanded = 240;
 
-const menuItems = [
-    { text: 'Home', icon: <HomeIcon /> },
-    { text: 'Search', icon: <SearchIcon /> },
-    { text: 'TV Shows', icon: <LiveTvIcon /> },
-    { text: 'Movies', icon: <MovieIcon /> },
-    { text: 'Sports', icon: <SportsSoccerIcon /> },
-    { text: 'Sparks', icon: <FlashOnIcon /> },
-    { text: 'Categories', icon: <CategoryIcon /> },
-    { text: 'My Space', icon: <PersonIcon /> },
-];
 
 export default function Sidebar() {
     const [hovered, setHovered] = useState(false);
+
+    const drawerWidthCollapsed = 70;
+    const drawerWidthExpanded = 240;
+
+    const menuItems = [
+        { text: 'Home', icon: <Home /> },
+        { text: 'Search', icon: <Search /> },
+        { text: 'TV Shows', icon: <LiveTv /> },
+        { text: 'Movies', icon: <Movie /> },
+        { text: 'Sports', icon: <SportsSoccer /> },
+        { text: 'Sparks', icon: <FlashOn /> },
+        { text: 'Categories', icon: <Category /> },
+        { text: 'My Space', icon: <Person /> },
+    ];
+
+    let mouseEnter = () => {
+        setHovered(true);
+    }
+    let mouseLeave = () => {
+        setHovered(false);
+    }
 
     return (
         <>
@@ -47,7 +56,7 @@ export default function Sidebar() {
                 sx={{
                     position: 'fixed',
                     top: 30,
-                    left: 7,
+                    left: 15,
                     zIndex: 3000,
                 }}
             >
@@ -55,16 +64,16 @@ export default function Sidebar() {
                     src={logo}
                     alt="Logo"
                     style={{
-                        width: '80px',
-                        height: '60px',
+                        width: '70px',
+                        height: '50px',
                         borderRadius: '6px',
                     }}
                 />
             </Box>
 
             <Box
-                onMouseEnter={() => setHovered(true)}
-                onMouseLeave={() => setHovered(false)}
+                onMouseEnter={mouseEnter}
+                onMouseLeave={mouseLeave}
                 sx={{
                     width: hovered ? drawerWidthExpanded : drawerWidthCollapsed,
                     transition: 'width 0.3s ease',
@@ -72,13 +81,13 @@ export default function Sidebar() {
                     height: 'auto',
                     position: 'fixed',
                     top: '50%',
-                    left: 10,
+                    left: 12,
                     transform: 'translateY(-50%)',
-                    bgcolor: '#0f1014',
+                    // bgcolor: hovered ? 'rgba(0, 0, 0, 0)' : '#0f1014',
                     color: 'rgba(255, 255, 255, 0.87)',
                     zIndex: 1300,
                     borderRadius: '0 8px 8px 0',
-                    boxShadow: '2px 0 6px rgba(0,0,0,0.4)',
+                    // boxShadow: '2px 0 6px rgba(0,0,0,0.4)',
                     display: 'flex',
                     flexDirection: 'column',
                     maxHeight: '90vh',
@@ -97,12 +106,8 @@ export default function Sidebar() {
                                     px: 5,
                                     transition: 'all 0.2s',
                                     '&:hover': {
-                                        color: '#fff',
                                         fontWeight: 'bold',
                                         transform: 'scale(1.05)',
-                                        '& .MuiListItemIcon-root': {
-                                            color: '#fff',
-                                        },
                                         '& .MuiListItemText-primary': {
                                             fontWeight: 'bold',
                                         },
@@ -119,7 +124,7 @@ export default function Sidebar() {
                                         color: 'inherit',
                                         fontSize: '1.3rem',
                                         '& svg': {
-                                            fontSize: '2.3rem',
+                                            fontSize: '2rem',
                                         },
                                     }}
                                 >
@@ -134,8 +139,7 @@ export default function Sidebar() {
                                         whiteSpace: 'nowrap',
                                         transition: 'opacity 0.3s ease, max-width 0.3s ease',
                                         '& .MuiListItemText-primary': {
-                                            fontSize: '1.3rem', 
-                                            transition: 'all 0.3s ease',
+                                            fontSize: '1.3rem',
                                         },
                                     }}
                                 >
