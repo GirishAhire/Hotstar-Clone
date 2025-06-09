@@ -1,6 +1,5 @@
-import React from 'react';
-
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import {
     Box,
@@ -24,8 +23,6 @@ import {
 
 import logo from '../assets/logo.png';
 
-
-
 export default function Sidebar() {
     const [hovered, setHovered] = useState(false);
 
@@ -33,22 +30,15 @@ export default function Sidebar() {
     const drawerWidthExpanded = 240;
 
     const menuItems = [
-        { text: 'Home', icon: <Home /> },
-        { text: 'Search', icon: <Search /> },
-        { text: 'TV Shows', icon: <LiveTv /> },
-        { text: 'Movies', icon: <Movie /> },
-        { text: 'Sports', icon: <SportsSoccer /> },
-        { text: 'Sparks', icon: <FlashOn /> },
-        { text: 'Categories', icon: <Category /> },
-        { text: 'My Space', icon: <Person /> },
+        { text: 'Home', icon: <Home />, path: '/' },
+        { text: 'Search', icon: <Search />, path: '/search' },
+        { text: 'TV Shows', icon: <LiveTv />, path: '/tv-shows' },
+        { text: 'Movies', icon: <Movie />, path: '/movies' },
+        { text: 'Sports', icon: <SportsSoccer />, path: '/sports' },
+        { text: 'Sparks', icon: <FlashOn />, path: '/sparks' },
+        { text: 'Categories', icon: <Category />, path: '/categories' },
+        { text: 'My Space', icon: <Person />, path: '/my-space' },
     ];
-
-    let mouseEnter = () => {
-        setHovered(true);
-    }
-    let mouseLeave = () => {
-        setHovered(false);
-    }
 
     return (
         <>
@@ -72,8 +62,8 @@ export default function Sidebar() {
             </Box>
 
             <Box
-                onMouseEnter={mouseEnter}
-                onMouseLeave={mouseLeave}
+                onMouseEnter={() => setHovered(true)}
+                onMouseLeave={() => setHovered(false)}
                 sx={{
                     width: hovered ? drawerWidthExpanded : drawerWidthCollapsed,
                     transition: 'width 0.3s ease',
@@ -83,70 +73,66 @@ export default function Sidebar() {
                     top: '50%',
                     left: 12,
                     transform: 'translateY(-50%)',
-                    // bgcolor: hovered ? 'rgba(0, 0, 0, 0)' : '#0f1014',
                     color: 'rgba(255, 255, 255, 0.87)',
                     zIndex: 1300,
                     borderRadius: '0 8px 8px 0',
-                    // boxShadow: '2px 0 6px rgba(0,0,0,0.4)',
                     display: 'flex',
                     flexDirection: 'column',
                     maxHeight: '90vh',
                     minHeight: '300px',
                     overflowY: 'auto',
-
                 }}
             >
                 <List>
                     {menuItems.map((item) => (
                         <ListItem key={item.text} disablePadding sx={{ display: 'block' }}>
-                            <ListItemButton
-                                sx={{
-                                    minHeight: 68,
-                                    justifyContent: hovered ? 'initial' : 'center',
-                                    px: 5,
-                                    transition: 'all 0.2s',
-                                    '&:hover': {
-                                        fontWeight: 'bold',
-                                        transform: 'scale(1.05)',
-                                        '& .MuiListItemText-primary': {
+                            <Link to={item.path} style={{ textDecoration: 'none', color: 'inherit' }}>
+                                <ListItemButton
+                                    sx={{
+                                        minHeight: 68,
+                                        justifyContent: hovered ? 'initial' : 'center',
+                                        px: 5,
+                                        transition: 'all 0.2s',
+                                        '&:hover': {
                                             fontWeight: 'bold',
-                                        },
-                                    },
-                                }}
-
-
-                            >
-                                <ListItemIcon
-                                    sx={{
-                                        minWidth: 0,
-                                        mr: hovered ? 2 : 'auto',
-                                        justifyContent: 'center',
-                                        color: 'inherit',
-                                        fontSize: '1.3rem',
-                                        '& svg': {
-                                            fontSize: '2rem',
+                                            transform: 'scale(1.05)',
+                                            '& .MuiListItemText-primary': {
+                                                fontWeight: 'bold',
+                                            },
                                         },
                                     }}
                                 >
-                                    {item.icon}
-                                </ListItemIcon>
-
-                                <Box
-                                    sx={{
-                                        opacity: hovered ? 1 : 0,
-                                        maxWidth: hovered ? '200px' : 0,
-                                        overflow: 'hidden',
-                                        whiteSpace: 'nowrap',
-                                        transition: 'opacity 0.3s ease, max-width 0.3s ease',
-                                        '& .MuiListItemText-primary': {
+                                    <ListItemIcon
+                                        sx={{
+                                            minWidth: 0,
+                                            mr: hovered ? 2 : 'auto',
+                                            justifyContent: 'center',
+                                            color: 'inherit',
                                             fontSize: '1.3rem',
-                                        },
-                                    }}
-                                >
-                                    <ListItemText primary={item.text} />
-                                </Box>
+                                            '& svg': {
+                                                fontSize: '2rem',
+                                            },
+                                        }}
+                                    >
+                                        {item.icon}
+                                    </ListItemIcon>
 
-                            </ListItemButton>
+                                    <Box
+                                        sx={{
+                                            opacity: hovered ? 1 : 0,
+                                            maxWidth: hovered ? '200px' : 0,
+                                            overflow: 'hidden',
+                                            whiteSpace: 'nowrap',
+                                            transition: 'opacity 0.3s ease, max-width 0.3s ease',
+                                            '& .MuiListItemText-primary': {
+                                                fontSize: '1.3rem',
+                                            },
+                                        }}
+                                    >
+                                        <ListItemText primary={item.text} />
+                                    </Box>
+                                </ListItemButton>
+                            </Link>
                         </ListItem>
                     ))}
                 </List>
