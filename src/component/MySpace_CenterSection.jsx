@@ -19,7 +19,7 @@ function MySpace_CenterSection() {
         boxShadow: 24,
         p: 4,
         borderRadius: 2,
-        bgcolor: 'background.paper',
+        bgcolor: '#16181f',
         outline: 'none',
     };
 
@@ -101,9 +101,10 @@ function MySpace_CenterSection() {
 
             <Modal open={open} onClose={handleClose}>
                 <Box sx={modalStyle}>
-                    <LoginSection />
+                    <LoginSection handleClose={handleClose} />
                 </Box>
             </Modal>
+
         </>
     );
 }
