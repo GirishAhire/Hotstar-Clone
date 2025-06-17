@@ -1,17 +1,33 @@
-import { Box, Typography, IconButton, TextField, Stack, InputAdornment, Button } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
 import React, { useState } from 'react';
 
+import {
+    InputAdornment,
+    Stack,
+    IconButton
+} from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
+
+import {
+    StyledBox,
+    StyledCloseIcon,
+    StyledTitle,
+    StyledSubtitle,
+    StyledTextField,
+    StyledSubmitButton
+} from './LoginSection.styles';
+
 function LoginSection({ handleClose }) {
+
     const [showPassword, setShowPassword] = useState(false);
     const handleClickShowPassword = () => setShowPassword((prev) => !prev);
-
 
     const [userData, setUserData] = useState({
         email: '',
         password: ''
     });
+
+    const [errors, setErrors] = useState({ email: '', password: '' });
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -21,14 +37,12 @@ function LoginSection({ handleClose }) {
         }));
     };
 
-    const [errors, setErrors] = useState({ email: '', password: '' });
-
-
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
     };
 
     const validateForm = () => {
+
         let emailError = '';
         let passwordError = '';
 
@@ -57,46 +71,30 @@ function LoginSection({ handleClose }) {
 
         if (validateForm()) {
             console.log('Form submitted:', userData);
+            // handle login success logic here
         }
     };
 
     return (
-        <Box
-            sx={{
-                position: 'relative',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'flex-start',
-                height: '100%',
-                paddingTop: 4,
-                textAlign: 'center',
-                px: 4,
-            }}
-        >
-            <IconButton
-                onClick={handleClose}
-                sx={{
-                    position: 'absolute',
-                    top: 8,
-                    right: 8,
-                    color: '#707a94',
-                }}
-            >
+
+        <StyledBox>
+
+            <StyledCloseIcon onClick={handleClose}>
                 <CloseIcon sx={{ fontSize: '2.5rem' }} />
-            </IconButton>
+            </StyledCloseIcon>
 
-            <Typography variant="h5" sx={{ fontWeight: 600, color: '#E1E6F0', mt: 2 }}>
+            <StyledTitle variant="h5">
                 Login or sign up to continue
-            </Typography>
+            </StyledTitle>
 
-            <Typography variant="body1" sx={{ color: '#8F98B2', mt: 1, mb: 4 }}>
+            <StyledSubtitle variant="body1">
                 Enter your email to login
-            </Typography>
+            </StyledSubtitle>
 
             <form onSubmit={handleSubmit}>
-                <Stack direction="column" spacing={2} sx={{ mb: 2 }}>
-                    <TextField
+                
+                <Stack direction="column" spacing={2}>
+                    <StyledTextField
                         name="email"
                         label="Enter your email"
                         variant="outlined"
@@ -104,10 +102,9 @@ function LoginSection({ handleClose }) {
                         onChange={handleChange}
                         error={!!errors.email}
                         helperText={errors.email}
-                        sx={textFieldStyles}
                     />
 
-                    <TextField
+                    <StyledTextField
                         name="password"
                         label="Enter your password"
                         type={showPassword ? 'text' : 'password'}
@@ -130,60 +127,15 @@ function LoginSection({ handleClose }) {
                                 </InputAdornment>
                             ),
                         }}
-                        sx={textFieldStyles}
                     />
 
-                    <Button
-                        type="submit"
-                        variant="contained"
-                        sx={{
-
-                            mt: 2,
-                            color: '#fff',
-                            width: '300px',
-                            height: '45px',
-                            fontWeight: 600,
-                            fontSize: '1rem',
-                            padding: '12px 12px',
-                            borderRadius: '8px',
-                            background: 'linear-gradient(92.7deg, #1492ff 0%, #0860c4 50%, #eb0066 100%)',
-                            '&:hover': {
-                                background: 'linear-gradient(92.7deg, #1492ff 0%, #0860c4 50%, #eb0066 100%)',
-                                filter: 'brightness(1.1)',
-                            }
-                        }}
-                    >
+                    <StyledSubmitButton type="submit" variant="contained">
                         Submit
-                    </Button>
+                    </StyledSubmitButton>
                 </Stack>
             </form>
-        </Box>
+        </StyledBox>
     );
 }
-
-const textFieldStyles = {
-    fontFamily: 'sans-serif',
-    width: '325px',
-    backgroundColor: '#00000000',
-    borderRadius: '8px',
-    '& .MuiOutlinedInput-root': {
-        borderRadius: '8px',
-        '& fieldset': { borderColor: '#8F98B2' },
-        '&:hover fieldset': { borderColor: '#8F98B2' },
-        '&.Mui-focused fieldset': { borderColor: '#8F98B2' },
-    },
-    '& .MuiInputBase-input': {
-        fontSize: '1.1rem', 
-        color: '#E1E6F0',
-    },
-    '& .MuiInputLabel-root': {
-        color: '#8F98A0',
-        fontSize: '1.1rem',
-    },
-    '& .MuiInputLabel-root.Mui-focused': {
-        color: '#8F98B2',
-    },
-};
-
 
 export default LoginSection;
