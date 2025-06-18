@@ -8,7 +8,7 @@ export const StyledBox = styled(Box)`
   align-items: center;
   justify-content: flex-start;
   height: 100%;
-  padding-top: 32px; /* theme.spacing(4) = 32px */
+  // padding-top: 35px; 
   text-align: center;
   padding-left: 16px;
   padding-right: 16px;
@@ -16,18 +16,22 @@ export const StyledBox = styled(Box)`
 
 export const StyledCloseIcon = styled(IconButton)`
   position: absolute;
-  top: 8px;
-  right: 8px;
+  top: 10px;
+  right: 15px;
   color: #707a94;
 `;
 
 export const StyledTitle = styled(Typography)`
+  text-align: center;
+  font-size: 1.8rem;
   font-weight: 600;
   color: #e1e6f0;
   margin-top: 16px;
 `;
 
 export const StyledSubtitle = styled(Typography)`
+  font-size: 1.3rem;
+  text-align: center;
   color: #8f98b2;
   margin-top: 8px;
   margin-bottom: 32px;
@@ -71,7 +75,7 @@ export const StyledTextField = styled(TextField)`
 
 export const StyledSubmitButton = styled(Button)`
   margin-top: 16px;
-  width: 300px;
+  width: 325px;
   height: 45px;
   font-weight: 600;
   font-size: 1rem;

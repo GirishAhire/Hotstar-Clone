@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 
 import {
     InputAdornment,
@@ -19,15 +21,22 @@ import {
 
 function LoginSection({ handleClose }) {
 
+    const navigate = useNavigate();
+
     const [showPassword, setShowPassword] = useState(false);
     const handleClickShowPassword = () => setShowPassword((prev) => !prev);
 
     const [userData, setUserData] = useState({
+        username: '',
         email: '',
         password: ''
     });
 
-    const [errors, setErrors] = useState({ email: '', password: '' });
+    const [errors, setErrors] = useState({
+        username: '',
+        email: '',
+        password: ''
+    });
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -42,9 +51,13 @@ function LoginSection({ handleClose }) {
     };
 
     const validateForm = () => {
-
+        let usernameError = '';
         let emailError = '';
         let passwordError = '';
+
+        if (!userData.username.trim()) {
+            usernameError = 'Username is required';
+        }
 
         if (!userData.email) {
             emailError = 'Email is required';
@@ -59,11 +72,12 @@ function LoginSection({ handleClose }) {
         }
 
         setErrors({
+            username: usernameError,
             email: emailError,
             password: passwordError
         });
 
-        return !emailError && !passwordError;
+        return !usernameError && !emailError && !passwordError;
     };
 
     const handleSubmit = (e) => {
@@ -71,14 +85,17 @@ function LoginSection({ handleClose }) {
 
         if (validateForm()) {
             console.log('Form submitted:', userData);
-            // handle login success logic here
+
+            localStorage.setItem('userData', JSON.stringify(userData));
+
+            sessionStorage.setItem('loggedIn', true);
+
+            navigate('/');
         }
     };
 
     return (
-
-        <StyledBox>
-
+        <>
             <StyledCloseIcon onClick={handleClose}>
                 <CloseIcon sx={{ fontSize: '2.5rem' }} />
             </StyledCloseIcon>
@@ -88,53 +105,65 @@ function LoginSection({ handleClose }) {
             </StyledTitle>
 
             <StyledSubtitle variant="body1">
-                Enter your email to login
+                Enter your credentials to login
             </StyledSubtitle>
 
-            <form onSubmit={handleSubmit}>
-                
-                <Stack direction="column" spacing={2}>
-                    <StyledTextField
-                        name="email"
-                        label="Enter your email"
-                        variant="outlined"
-                        value={userData.email}
-                        onChange={handleChange}
-                        error={!!errors.email}
-                        helperText={errors.email}
-                    />
+            <StyledBox>
 
-                    <StyledTextField
-                        name="password"
-                        label="Enter your password"
-                        type={showPassword ? 'text' : 'password'}
-                        variant="outlined"
-                        value={userData.password}
-                        onChange={handleChange}
-                        error={!!errors.password}
-                        helperText={errors.password}
-                        InputProps={{
-                            endAdornment: (
-                                <InputAdornment position="end">
-                                    <IconButton
-                                        aria-label={showPassword ? 'Hide password' : 'Show password'}
-                                        onClick={handleClickShowPassword}
-                                        onMouseDown={handleMouseDownPassword}
-                                        sx={{ color: '#8F98B2' }}
-                                    >
-                                        {showPassword ? <VisibilityOff /> : <Visibility />}
-                                    </IconButton>
-                                </InputAdornment>
-                            ),
-                        }}
-                    />
+                <form onSubmit={handleSubmit}>
+                    <Stack direction="column" spacing={2}>
+                        <StyledTextField
+                            name="username"
+                            label="Enter your username"
+                            variant="outlined"
+                            value={userData.username}
+                            onChange={handleChange}
+                            error={!!errors.username}
+                            helperText={errors.username}
+                        />
 
-                    <StyledSubmitButton type="submit" variant="contained">
-                        Submit
-                    </StyledSubmitButton>
-                </Stack>
-            </form>
-        </StyledBox>
+                        <StyledTextField
+                            name="email"
+                            label="Enter your email"
+                            variant="outlined"
+                            value={userData.email}
+                            onChange={handleChange}
+                            error={!!errors.email}
+                            helperText={errors.email}
+                        />
+
+                        <StyledTextField
+                            name="password"
+                            label="Enter your password"
+                            type={showPassword ? 'text' : 'password'}
+                            variant="outlined"
+                            value={userData.password}
+                            onChange={handleChange}
+                            error={!!errors.password}
+                            helperText={errors.password}
+                            InputProps={{
+                                endAdornment: (
+                                    <InputAdornment position="end">
+                                        <IconButton
+                                            aria-label={showPassword ? 'Hide password' : 'Show password'}
+                                            onClick={handleClickShowPassword}
+                                            onMouseDown={handleMouseDownPassword}
+                                            sx={{ color: '#8F98B2' }}
+                                        >
+                                            {showPassword ? <VisibilityOff /> : <Visibility />}
+                                        </IconButton>
+                                    </InputAdornment>
+                                ),
+                            }}
+                        />
+
+                        <StyledSubmitButton type="submit" variant="contained">
+                            Submit
+                        </StyledSubmitButton>
+                    </Stack>
+                </form>
+            </StyledBox>
+        </>
     );
 }
 
