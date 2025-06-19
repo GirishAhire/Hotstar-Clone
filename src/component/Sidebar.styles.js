@@ -1,4 +1,3 @@
-// Sidebar.styles.js
 import { styled } from '@mui/material/styles';
 import { Box, ListItemButton, ListItemIcon } from '@mui/material';
 
@@ -16,8 +15,7 @@ export const LogoImage = styled('img')({
 });
 
 export const SidebarContainer = styled(Box, {
-    shouldForwardProp: (prop) => prop !== 'hovered',
-})(({ hovered }) => ({
+    shouldForwardProp: (prop) => prop !== 'hovered',})(({ hovered }) => ({
     width: hovered ? 240 : 70,
     transition: 'width 0.3s ease',
     overflowX: 'hidden',
@@ -37,8 +35,7 @@ export const SidebarContainer = styled(Box, {
 }));
 
 export const StyledListItemButton = styled(ListItemButton, {
-    shouldForwardProp: (prop) => prop !== 'hovered',
-})(({ hovered }) => ({
+    shouldForwardProp: (prop) => prop !== 'hovered',})(({ hovered }) => ({
     minHeight: 68,
     justifyContent: hovered ? 'initial' : 'center',
     paddingLeft: 40,
@@ -54,8 +51,7 @@ export const StyledListItemButton = styled(ListItemButton, {
 }));
 
 export const StyledListItemIcon = styled(ListItemIcon, {
-    shouldForwardProp: (prop) => prop !== 'hovered',
-})(({ hovered }) => ({
+    shouldForwardProp: (prop) => prop !== 'hovered',})(({ hovered }) => ({
     minWidth: 0,
     marginRight: hovered ? 16 : 'auto',
     justifyContent: 'center',
@@ -66,8 +62,7 @@ export const StyledListItemIcon = styled(ListItemIcon, {
 }));
 
 export const TextWrapper = styled(Box, {
-    shouldForwardProp: (prop) => prop !== 'hovered',
-})(({ hovered }) => ({
+    shouldForwardProp: (prop) => prop !== 'hovered',})(({ hovered }) => ({
     opacity: hovered ? 1 : 0,
     maxWidth: hovered ? '200px' : 0,
     overflow: 'hidden',

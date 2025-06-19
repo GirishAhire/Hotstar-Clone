@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
 import { toast } from 'react-toastify';
+
 import ImageComponent from '../component/AutoImageSlider';
+import PopularMovieList from '../component/PopularMovieList';
 
 function Home() {
 
@@ -19,6 +21,7 @@ function Home() {
     return (
         <div>
             <ImageComponent />
+            <PopularMovieList />
         </div>
     );
 }

@@ -3,12 +3,13 @@ import Box from '@mui/material/Box';
 
 export const SliderWrapper = styled(Box)({
   position: 'relative',
-  left: '90px', // Adjust if your sidebar width changes
+  left: '110px', 
   width: 'calc(100vw - 90px)',
   maxWidth: '100%',
   height: 'auto',
   overflow: 'hidden',
   zIndex: 1000,
+  borderRadius:'8px'
 });
 
 export const SlideContainer = styled(Box)({
