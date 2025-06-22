@@ -1,18 +1,25 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, lazy, Suspense } from 'react';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useNavigate,
+  useLocation,
+} from 'react-router-dom';
 
-import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation } from 'react-router-dom';
+import Loader from './component/Loader';
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import Sidebar from './component/Sidebar';
-import MySpace from './pages/MySpace';
-import Home from './pages/Home';
+
+const Home = lazy(() => import('./pages/Home'));
+const MySpace = lazy(() => import('./pages/MySpace'));
 
 function AppRouterLogic() {
   const navigate = useNavigate();
   const location = useLocation();
-
 
   useEffect(() => {
     const storedUser = localStorage.getItem('userData');
@@ -29,10 +36,12 @@ function AppRouterLogic() {
   return (
     <>
       <Sidebar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/my-space" element={<MySpace />} />
-      </Routes>
+      <Suspense fallback={<Loader />}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/my-space" element={<MySpace />} />
+        </Routes>
+      </Suspense>
     </>
   );
 }
@@ -41,7 +50,8 @@ function App() {
   return (
     <Router>
       <AppRouterLogic />
-      <ToastContainer position="top-right"
+      <ToastContainer
+        position="top-right"
         autoClose={6000}
         hideProgressBar={false}
         newestOnTop={false}
@@ -50,7 +60,8 @@ function App() {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        theme="dark" />
+        theme="dark"
+      />
     </Router>
   );
 }

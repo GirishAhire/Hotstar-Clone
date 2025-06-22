@@ -1,6 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, lazy, Suspense } from 'react';
 import axios from 'axios';
-
 import { ArrowBackIos, ArrowForwardIos } from '@mui/icons-material';
 
 import {
@@ -9,25 +8,23 @@ import {
     ScrollContainer,
     LeftScrollButton,
     RightScrollButton,
-    MovieCard,
-    MovieImage,
 } from './PopularMovieList.styles';
 
-const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/w500';
-const API_KEY = 'https://api.themoviedb.org/3/movie/popular?api_key=1e86608c59e51f09d448f280889a99d7';
+import Loader from '../component/Loader';
+
+const MovieCard = lazy(() => import('./MovieCard'));
+
+const IMAGE_BASE_URL = import.meta.env.VITE_IMAGE_BASE_URL;
+const API_URL = import.meta.env.VITE_TMDB_API_URL;
 
 function PopularMovieList() {
-
     const [movies, setMovies] = useState([]);
     const containerRef = useRef(null);
 
     useEffect(() => {
-
         const fetchMovies = async () => {
             try {
-                const response = await axios.get(API_KEY);
-
-                // console.log(response.data);
+                const response = await axios.get(API_URL);
                 setMovies(response.data.results);
             } catch (error) {
                 console.error('Failed to fetch movies:', error);
@@ -47,7 +44,6 @@ function PopularMovieList() {
 
     return (
         <Wrapper>
-
             <Title>Popular Movies</Title>
 
             <LeftScrollButton onClick={scrollLeft}>
@@ -55,20 +51,20 @@ function PopularMovieList() {
             </LeftScrollButton>
 
             <ScrollContainer ref={containerRef}>
-                {movies.map((movie) => (
-                    <MovieCard key={movie.id}>
-                        <MovieImage
-                            src={`${IMAGE_BASE_URL}${movie.poster_path}`}
-                            alt={movie.title}
+                <Suspense fallback={<Loader />}>
+                    {movies.map((movie) => (
+                        <MovieCard
+                            key={movie.id}
+                            imageUrl={`${IMAGE_BASE_URL}${movie.poster_path}`}
+                            title={movie.title}
                         />
-                    </MovieCard>
-                ))}
+                    ))}
+                </Suspense>
             </ScrollContainer>
 
             <RightScrollButton onClick={scrollRight}>
                 <ArrowForwardIos />
             </RightScrollButton>
-
         </Wrapper>
     );
 }

@@ -41,6 +41,8 @@ export const StyledTextField = styled(TextField)`
   width: 325px;
   background-color: transparent;
   border-radius: 8px;
+  text-align: center;
+
 
   .MuiOutlinedInput-root {
     border-radius: 8px;

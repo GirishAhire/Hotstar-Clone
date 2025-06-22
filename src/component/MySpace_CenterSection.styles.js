@@ -9,7 +9,7 @@ export const StyledImage = styled('img')({
 });
 
 export const Title = styled('p')({
-    fontSize: '26px',
+    fontSize: '28px',
     fontWeight: 700,
     color: '#E1E6F0',
     lineHeight: 1.4,
@@ -18,11 +18,11 @@ export const Title = styled('p')({
 
 export const Description = styled('p')({
     fontFamily: 'sans-serif',
-    fontSize: '20px',
+    fontSize: '22px',
     fontWeight: 100,
     color: '#8F98B2',
     lineHeight: 1.6,
-    maxWidth: '500px',
+    // maxWidth: '500px',
     marginRight: '100px',
     textAlign: 'center',
     textOverflow: 'ellipsis',
@@ -32,11 +32,11 @@ export const Description = styled('p')({
 
 export const LoginButton = styled(Button)({
     background: 'linear-gradient(92.7deg, #1492ff 0%, #0860c4 50%, #eb0066 100%)',
-    color: '#fff',
+    color: '#ffff',
     width: '240px',
     height: '55px',
     fontWeight: 600,
-    fontSize: '1rem',
+    fontSize: '1.3rem',
     padding: '12px 12px',
     borderRadius: '8px',
     display: 'flex',
