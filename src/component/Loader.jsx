@@ -8,7 +8,7 @@ const Loader = () => {
             justifyContent: 'center',
             alignItems: 'center',
             height: '100vh',
-            backgroundColor: '#121212'
+            // backgroundColor: '#121212'
         }}>
             <CircularProgress color="secondary" size={60} />
         </div>
