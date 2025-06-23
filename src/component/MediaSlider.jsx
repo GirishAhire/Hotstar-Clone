@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState, lazy, Suspense } from 'react';
 import axios from 'axios';
-
 import { ArrowBackIos, ArrowForwardIos } from '@mui/icons-material';
 
 import {
@@ -15,9 +14,9 @@ import Loader from '../component/Loader';
 const MovieCard = lazy(() => import('./MovieCard'));
 
 const IMAGE_BASE_URL = import.meta.env.VITE_IMAGE_BASE_URL;
-const API_URL = `${import.meta.env.VITE_TMDB_POPULAR_BASE_URL}?api_key=${import.meta.env.VITE_TMDB_API_KEY}`;
+const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 
-function PopularMovieList() {
+function MediaSlider({ title, apiUrl }) {
     const [movies, setMovies] = useState([]);
     const [page, setPage] = useState(1);
     const [visibleCount, setVisibleCount] = useState(7);
@@ -31,7 +30,7 @@ function PopularMovieList() {
     const fetchMovies = async (pageNum) => {
         setIsLoading(true);
         try {
-            const response = await axios.get(`${API_URL}&page=${pageNum}`);
+            const response = await axios.get(`${apiUrl}?api_key=${API_KEY}&page=${pageNum}`);
             const newMovies = response.data.results || [];
 
             if (newMovies.length === 0) {
@@ -47,7 +46,7 @@ function PopularMovieList() {
 
             setPage(pageNum);
         } catch (error) {
-            console.error('Error fetching popular movies:', error);
+            console.error('Error fetching media:', error);
         }
         setIsLoading(false);
     };
@@ -84,15 +83,15 @@ function PopularMovieList() {
     };
 
     const scrollRight = () => {
-        if (isLoading) return;
-
         containerRef.current?.scrollBy({ left: 1800, behavior: 'smooth' });
 
         setVisibleCount((prev) => {
             const nextCount = prev + 7;
+
             if (nextCount > movies.length - 7 && hasMore && !isLoading) {
                 fetchMovies(page + 1);
             }
+
             return nextCount;
         });
     };
@@ -101,24 +100,24 @@ function PopularMovieList() {
         <div ref={sectionRef}>
             {isVisible && (
                 <Wrapper>
-                    <Title>Popular Movies</Title>
+                    <Title>{title}</Title>
+
                     <LeftScrollButton onClick={scrollLeft}>
                         <ArrowBackIos />
                     </LeftScrollButton>
+
                     <ScrollContainer ref={containerRef}>
                         <Suspense fallback={<Loader />}>
                             {movies.slice(0, visibleCount).map((movie) => (
                                 <MovieCard
                                     key={movie.id}
-                                    imageUrl={movie.poster_path ? `${IMAGE_BASE_URL}${movie.poster_path}` : null}
-                                    title={movie.title}
+                                    imageUrl={`${IMAGE_BASE_URL}${movie.poster_path}`}
+                                    title={movie.title || movie.name}
                                 />
-                            ))}
-                            {isLoading && Array.from({ length: 7 }).map((_, i) => (
-                                <Loader key={`loader-${i}`} />
                             ))}
                         </Suspense>
                     </ScrollContainer>
+
                     <RightScrollButton onClick={scrollRight}>
                         <ArrowForwardIos />
                     </RightScrollButton>
@@ -128,4 +127,4 @@ function PopularMovieList() {
     );
 }
 
-export default PopularMovieList;
+export default MediaSlider;
