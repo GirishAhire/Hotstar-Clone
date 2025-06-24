@@ -1,12 +1,59 @@
-# React + Vite
+# 🎬 Hoster Clone – Movie Streaming App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Hoster Clone is a responsive and modern movie streaming web application inspired by platforms like **JioCinema** or **Hoster**. It allows users to explore trending, top-rated, and upcoming movies fetched from the TMDB API, presented in a clean, fast, and visually engaging interface.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Live Demo
 
-## Expanding the ESLint configuration
+[Click here to view the live demo](hotstar-clone-virid.vercel.app)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 🧰 Tech Stack
+
+- **React.js** (with Vite)
+- **Tailwind CSS** (for fast, responsive styling)
+- **React Router** (for routing)
+- **TMDB API** (for real-time movie data)
+- **React Lazy/Suspense** (for code-splitting and performance)
+- **Horizontal Scroll Carousel** (`react-horizontal-scrolling-menu`)
+- **Environment Variables** for secure API key management
+
+---
+
+## ✨ Features
+
+- 🔍 **Search** for your favorite movies
+- 🎞️ Horizontal scrollable sections for:
+  - Trending Movies
+  - Top Rated Movies
+  - Upcoming Releases
+- 🖼️ Lazy loading of movie cards and posters
+- ⚡ Fast performance with code splitting
+- 📱 Fully responsive design
+- 🌙 Dark mode support (optional, if implemented)
+
+---
+
+## 🔑 Environment Variables
+
+Create a `.env` file in the root of your project and add your TMDB credentials:
+
+```env
+VITE_TMDB_API_KEY=your_tmdb_api_key_here
+VITE_TMDB_BASE_URL=https://api.themoviedb.org/3
+
+# Clone the repository
+git clone https://github.com/your-username/hoster-clone.git
+
+# Navigate into the project
+cd hoster-clone
+
+# Install dependencies
+npm install
+
+# Start the development server
+npm run dev
+
+

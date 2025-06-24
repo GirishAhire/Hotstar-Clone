@@ -76,7 +76,8 @@ function MediaSlider({ title, apiUrl }) {
         if (isVisible && movies.length === 0) {
             fetchMovies(1);
         }
-    }, [isVisible]);
+    }, [isVisible, movies.length]);
+
 
     const scrollLeft = () => {
         containerRef.current?.scrollBy({ left: -1800, behavior: 'smooth' });

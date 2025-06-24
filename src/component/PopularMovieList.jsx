@@ -15,7 +15,7 @@ import Loader from '../component/Loader';
 const MovieCard = lazy(() => import('./MovieCard'));
 
 const IMAGE_BASE_URL = import.meta.env.VITE_IMAGE_BASE_URL;
-const API_URL = `${import.meta.env.VITE_TMDB_POPULAR_BASE_URL}?api_key=${import.meta.env.VITE_TMDB_API_KEY}`;
+const API_URL = `${import.meta.env.VITE_TMDB_BASE_URL}/movie/popular?api_key=${import.meta.env.VITE_TMDB_API_KEY}`;
 
 function PopularMovieList() {
     const [movies, setMovies] = useState([]);
@@ -77,7 +77,7 @@ function PopularMovieList() {
         if (isVisible && movies.length === 0) {
             fetchMovies(1);
         }
-    }, [isVisible]);
+    }, [isVisible, movies.length]);
 
     const scrollLeft = () => {
         containerRef.current?.scrollBy({ left: -1800, behavior: 'smooth' });
