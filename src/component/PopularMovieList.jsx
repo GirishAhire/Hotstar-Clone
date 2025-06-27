@@ -11,6 +11,7 @@ import {
     RightScrollButton,
 } from './PopularMovieList.styles';
 
+import MovieDetailPopup from './MovieDetailPopup';
 import Loader from '../component/Loader';
 const MovieCard = lazy(() => import('./MovieCard'));
 
@@ -24,7 +25,7 @@ function PopularMovieList() {
     const [isLoading, setIsLoading] = useState(false);
     const [hasMore, setHasMore] = useState(true);
     const [isVisible, setIsVisible] = useState(false);
-
+    const [selectedMovie, setSelectedMovie] = useState(null);
     const containerRef = useRef(null);
     const sectionRef = useRef(null);
 
@@ -110,14 +111,29 @@ function PopularMovieList() {
                             {movies.slice(0, visibleCount).map((movie) => (
                                 <MovieCard
                                     key={movie.id}
-                                    imageUrl={movie.poster_path ? `${IMAGE_BASE_URL}${movie.poster_path}` : null}
+                                    imageUrl={`${IMAGE_BASE_URL}${movie.poster_path}`}
                                     title={movie.title}
+                                    onClick={() =>
+                                        setSelectedMovie({
+                                            imageUrl: `${IMAGE_BASE_URL}${movie.poster_path}`,
+                                            title: movie.title,
+                                            overview: movie.overview,
+                                        })
+                                    }
                                 />
                             ))}
-                            {isLoading && Array.from({ length: 7 }).map((_, i) => (
-                                <Loader key={`loader-${i}`} />
-                            ))}
+
+                            {isLoading &&
+                                Array.from({ length: 7 }).map((_, i) => (
+                                    <Loader key={`loader-${i}`} />
+                                ))}
                         </Suspense>
+                        {selectedMovie && (
+                            <MovieDetailPopup
+                                movie={selectedMovie}
+                                onClose={() => setSelectedMovie(null)}
+                            />
+                        )}
                     </ScrollContainer>
                     <RightScrollButton onClick={scrollRight}>
                         <ArrowForwardIos />

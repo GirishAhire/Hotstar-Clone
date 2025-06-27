@@ -4,15 +4,18 @@ import { MovieCardWrapper, MovieImage } from './MovieCard.styles';
 
 import Loader from '../component/Loader';
 
-const MovieCard = ({ imageUrl, title }) => {
+const MovieCard = ({ imageUrl, title, onClick }) => {
     const [isImageLoaded, setIsImageLoaded] = useState(false);
+
+    const handleOnLoad = () => setIsImageLoaded(true);
+    const handleOnError = () => setIsImageLoaded(true);
 
     useEffect(() => {
         setIsImageLoaded(false);
     }, [imageUrl]);
 
     return (
-        <MovieCardWrapper>
+        <MovieCardWrapper onClick={onClick} style={{ cursor: 'pointer' }}>
             {!isImageLoaded && (
                 <div style={{
                     position: 'absolute',
@@ -28,8 +31,8 @@ const MovieCard = ({ imageUrl, title }) => {
                 src={imageUrl}
                 alt={title}
                 loading="lazy"
-                onLoad={() => setIsImageLoaded(true)}
-                onError={() => setIsImageLoaded(true)}
+                onLoad={handleOnLoad}
+                onError={handleOnError}
                 loaded={isImageLoaded}
             />
         </MovieCardWrapper>
