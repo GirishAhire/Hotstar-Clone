@@ -2,20 +2,21 @@ import { styled } from '@mui/material/styles';
 
 export const Wrapper = styled('div')({
     position: 'relative',
-    left: '90px',
     marginTop: '1.5rem',
     padding: '0 1.5rem',
     overflow: 'hidden',
+    paddingLeft: '100px',
 
     '@media (max-width: 1024px)': {
-        left: '80px',
+        paddingLeft: '90px',
     },
     '@media (max-width: 768px)': {
-        left: '0px',
-        padding: '0 1rem',
+        paddingLeft: '60px',
+        paddingRight: '1rem',
     },
     '@media (max-width: 480px)': {
-        padding: '0 0.5rem',
+        paddingLeft: '10px',
+        paddingRight: '0.5rem',
     },
 });
 
@@ -48,7 +49,7 @@ export const ScrollContainer = styled('div')({
 export const LeftScrollButton = styled('button')({
     position: 'absolute',
     top: '50%',
-    left: '25px',
+    left: '100px',
     transform: 'translateY(-50%)',
     zIndex: 10,
     backgroundColor: 'rgba(0, 0, 0, 0)',
@@ -69,7 +70,7 @@ export const LeftScrollButton = styled('button')({
 export const RightScrollButton = styled('button')({
     position: 'absolute',
     top: '50%',
-    right: '80px',
+    right: '20px',
     transform: 'translateY(-50%)',
     zIndex: 10,
     backgroundColor: 'rgba(0, 0, 0, 0)',
@@ -85,35 +86,4 @@ export const RightScrollButton = styled('button')({
     '@media (max-width: 480px)': {
         display: 'none',
     },
-});
-
-export const MovieCard = styled('div')({
-    width: '240px',
-    height: '380px',
-    backgroundColor: '#1e1e1e',
-    borderRadius: '8px',
-    overflow: 'hidden',
-    flex: '0 0 auto',
-    boxShadow: '0 4px 8px rgba(0,0,0,0.3)',
-    display: 'flex',
-    flexDirection: 'column',
-
-    '@media (max-width: 1024px)': {
-        width: '200px',
-        height: '320px',
-    },
-    '@media (max-width: 768px)': {
-        width: '170px',
-        height: '270px',
-    },
-    '@media (max-width: 480px)': {
-        width: '140px',
-        height: '220px',
-    },
-});
-
-export const MovieImage = styled('img')({
-    width: '100%',
-    height: '100%',
-    objectFit: 'cover',
 });

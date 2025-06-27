@@ -7,13 +7,6 @@ import Loader from '../component/Loader';
 const MovieCard = ({ imageUrl, title }) => {
     const [isImageLoaded, setIsImageLoaded] = useState(false);
 
-    const handleOnLoad = () => {
-        setIsImageLoaded(true)
-    }
-    const handleOnError = () => {
-        setIsImageLoaded(true)
-    }
-
     useEffect(() => {
         setIsImageLoaded(false);
     }, [imageUrl]);
@@ -35,8 +28,8 @@ const MovieCard = ({ imageUrl, title }) => {
                 src={imageUrl}
                 alt={title}
                 loading="lazy"
-                onLoad={handleOnLoad}
-                onError={handleOnError}
+                onLoad={() => setIsImageLoaded(true)}
+                onError={() => setIsImageLoaded(true)}
                 loaded={isImageLoaded}
             />
         </MovieCardWrapper>
