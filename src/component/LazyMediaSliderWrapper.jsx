@@ -1,11 +1,24 @@
 import React, { useEffect, useRef, useState, lazy, Suspense } from 'react';
 import Loader from '../component/Loader';
+import { Wrapper, Placeholder } from './LazyMediaSliderWrapper.styles';
 
 const MediaSlider = lazy(() => import('./MediaSlider'));
 
-function LazyMediaSliderWrapper({ title, apiUrl }) {
+function LazyMediaSliderWrapper({ title }) {
+
     const [shouldRender, setShouldRender] = useState(false);
     const observerRef = useRef(null);
+
+    const titleToApiMap = {
+        'Popular Movies': '/movie/popular',
+        'Trending Now': '/trending/all/day',
+        'Upcoming Movies': '/movie/upcoming',
+        'Top Rated': '/movie/top_rated',
+        'Popular TV Shows': '/tv/popular',
+    };
+
+    const apiPath = titleToApiMap[title];
+    const apiUrl = `${import.meta.env.VITE_TMDB_BASE_URL}${apiPath}`;
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -17,9 +30,10 @@ function LazyMediaSliderWrapper({ title, apiUrl }) {
             },
             {
                 root: null,
-                rootMargin: '0px',
-                threshold: 0.5,
+                rootMargin: '100px 0px',
+                threshold: 0.1,
             }
+
         );
 
         if (observerRef.current) {
@@ -32,17 +46,17 @@ function LazyMediaSliderWrapper({ title, apiUrl }) {
     }, []);
 
     return (
-        <div ref={observerRef} style={{ minHeight: '400px' }}>
+        <Wrapper ref={observerRef}>
             {shouldRender ? (
                 <Suspense fallback={<Loader />}>
                     <MediaSlider title={title} apiUrl={apiUrl} />
                 </Suspense>
             ) : (
-                <div style={{ height: '380px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <Placeholder>
                     <Loader />
-                </div>
+                </Placeholder>
             )}
-        </div>
+        </Wrapper>
     );
 }
 

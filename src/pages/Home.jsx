@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import { toast } from 'react-toastify';
 
 import ImageComponent from '../component/AutoImageSlider';
-import PopularMovieList from '../component/PopularMovieList';
 import LazyMediaSliderWrapper from '../component/LazyMediaSliderWrapper';
 
 function Home() {
@@ -18,32 +17,16 @@ function Home() {
 
     return (
         <div>
+
             <ImageComponent />
-            {/* <PopularMovieList /> */}
 
-            <LazyMediaSliderWrapper
-                title="Popular Movies"
-                apiUrl="https://api.themoviedb.org/3/movie/popular"
-            />
+            <LazyMediaSliderWrapper title="Popular Movies" />
+            <LazyMediaSliderWrapper title="Trending Now" />
+            <LazyMediaSliderWrapper title="Upcoming Movies" />
+            <LazyMediaSliderWrapper title="Top Rated" />
+            <LazyMediaSliderWrapper title="Popular TV Shows" />
 
-            <LazyMediaSliderWrapper
-                title="Trending Now"
-                apiUrl="https://api.themoviedb.org/3/trending/all/day"
-            />
-            <LazyMediaSliderWrapper
-                title="Upcoming Movies"
-                apiUrl="https://api.themoviedb.org/3/movie/upcoming"
-            />
 
-            <LazyMediaSliderWrapper
-                title="Top Rated"
-                apiUrl="https://api.themoviedb.org/3/movie/top_rated"
-            />
-
-            <LazyMediaSliderWrapper
-                title="Popular TV Shows"
-                apiUrl="https://api.themoviedb.org/3/tv/popular"
-            />
         </div>
     );
 }

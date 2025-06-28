@@ -22,7 +22,7 @@ export const PopupWrapper = styled('div')({
     width: '60vw',
     maxHeight: '95vh',
     overflowY: 'auto',
-    color: '#8f98b2',
+    // color: '#8f98b2',
     position: 'relative',
     boxShadow: '0 0 25px rgba(0,0,0,0.6)',
     animation: 'fadeIn 0.3s ease-in-out',
@@ -80,13 +80,16 @@ export const PopupImage = styled('img')({
 
 export const Content = styled('div')({
     padding: '0 1rem 1rem 1rem',
+    fontFamily:'sans-serif',
 
     '& h2': {
-        fontSize: '1.6rem',
+        fontSize: '1.8rem',
         marginBottom: '0.5rem',
+        color: '#E1E6F0',
+
     },
     '& p': {
-        fontSize: '1.2rem',
+        fontSize: '1.3rem',
         lineHeight: 1.6,
         color: '#e1e6f0',
     },

@@ -121,7 +121,8 @@ function MediaSlider({ title, apiUrl }) {
                                     onClick={() =>
                                         setSelectedMovie({
                                             imageUrl: `${IMAGE_ORIGINAL_URL}${movie.poster_path}`,
-                                            title: movie.title,
+                                            // imageUrl: `${IMAGE_ORIGINAL_URL}${movie.backdrop_path}`,
+                                            title: movie.original_title || movie.original_name,
                                             overview: movie.overview,
                                         })
                                     }
