@@ -19,7 +19,12 @@ function Home() {
     return (
         <div>
             <ImageComponent />
-            <PopularMovieList />
+            {/* <PopularMovieList /> */}
+
+            <LazyMediaSliderWrapper
+                title="Popular Movies"
+                apiUrl="https://api.themoviedb.org/3/movie/popular"
+            />
 
             <LazyMediaSliderWrapper
                 title="Trending Now"

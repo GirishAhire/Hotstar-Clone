@@ -10,9 +10,12 @@ import {
     RightScrollButton,
 } from './PopularMovieList.styles';
 
+import MovieDetailPopup from './MovieDetailPopup';
+
 import Loader from '../component/Loader';
 const MovieCard = lazy(() => import('./MovieCard'));
 
+const IMAGE_ORIGINAL_URL = import.meta.env.VITE_IMAGE_ORIGINAL_URL;
 const IMAGE_BASE_URL = import.meta.env.VITE_IMAGE_BASE_URL;
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 
@@ -23,6 +26,7 @@ function MediaSlider({ title, apiUrl }) {
     const [isLoading, setIsLoading] = useState(false);
     const [hasMore, setHasMore] = useState(true);
     const [isVisible, setIsVisible] = useState(false);
+    const [selectedMovie, setSelectedMovie] = useState(null);
 
     const containerRef = useRef(null);
     const sectionRef = useRef(null);
@@ -113,10 +117,28 @@ function MediaSlider({ title, apiUrl }) {
                                 <MovieCard
                                     key={movie.id}
                                     imageUrl={`${IMAGE_BASE_URL}${movie.poster_path}`}
-                                    title={movie.title || movie.name}
+                                    title={movie.title}
+                                    onClick={() =>
+                                        setSelectedMovie({
+                                            imageUrl: `${IMAGE_ORIGINAL_URL}${movie.poster_path}`,
+                                            title: movie.title,
+                                            overview: movie.overview,
+                                        })
+                                    }
                                 />
                             ))}
+
+                            {isLoading &&
+                                Array.from({ length: 7 }).map((_, i) => (
+                                    <Loader key={`loader-${i}`} />
+                                ))}
                         </Suspense>
+                        {selectedMovie && (
+                            <MovieDetailPopup
+                                movie={selectedMovie}
+                                onClose={() => setSelectedMovie(null)}
+                            />
+                        )}
                     </ScrollContainer>
 
                     <RightScrollButton onClick={scrollRight}>

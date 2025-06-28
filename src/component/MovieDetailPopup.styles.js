@@ -11,18 +11,18 @@ export const Backdrop = styled('div')({
     justifyContent: 'center',
     alignItems: 'center',
     zIndex: 2000,
+    overflow: 'hidden',
 });
 
 export const PopupWrapper = styled('div')({
     display: 'flex',
     flexDirection: 'column',
     backgroundColor: '#0f1014',
-    borderRadius: '16px',
-    width: '55vw',
-    height: 'auto',
-    maxHeight: '85vh',
+    borderRadius: '20px',
+    width: '60vw',
+    maxHeight: '95vh',
     overflowY: 'auto',
-    color: '#ffffff',
+    color: '#8f98b2',
     position: 'relative',
     boxShadow: '0 0 25px rgba(0,0,0,0.6)',
     animation: 'fadeIn 0.3s ease-in-out',
@@ -46,35 +46,64 @@ export const PopupWrapper = styled('div')({
     },
 });
 
-export const PopupImage = styled('img')({
-    height: '70vh',
-    objectFit:'contain',
+export const ImageContainer = styled('div')({
+    position: 'relative',
+    width: '100%',
+    height: '55vh',
     borderRadius: '12px',
-    // marginBottom: '1rem',
+    overflow: 'hidden',
+    marginBottom: '1rem',
+});
+
+export const BlurredBackground = styled('div')(({ image }) => ({
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    backgroundImage: `url(${image})`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    filter: 'blur(2px) brightness(0.4)',
+    transform: 'scale(1.1)',
+    zIndex: 1,
+}));
+
+export const PopupImage = styled('img')({
+    position: 'relative',
+    zIndex: 2,
+    width: '100%',
+    height: '100%',
+    objectFit: 'contain',
+    borderRadius: '12px',
 });
 
 export const Content = styled('div')({
-    padding: '0 1rem',
-    h2: {
+    padding: '0 1rem 1rem 1rem',
+
+    '& h2': {
         fontSize: '1.6rem',
         marginBottom: '0.5rem',
     },
-    p: {
-        fontSize: '1.4rem',
+    '& p': {
+        fontSize: '1.2rem',
         lineHeight: 1.6,
-        color: '#ffffff',
+        color: '#e1e6f0',
     },
 });
 
 export const CloseButton = styled('button')({
     position: 'absolute',
     top: '10px',
-    right: '15px',
+    right: '25px',
     color: '#ffffff',
     background: 'transparent',
     border: 'none',
-    fontSize: '3.5rem',
+    fontSize: '3rem',
     cursor: 'pointer',
+    zIndex: 3,
     transition: 'transform 0.2s ease',
-
+    '&:hover': {
+        transform: 'scale(1.1)',
+    },
 });
