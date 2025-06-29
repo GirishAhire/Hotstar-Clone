@@ -44,6 +44,9 @@ function MediaSlider({ title, apiUrl }) {
             imageUrl: `${IMAGE_ORIGINAL_URL}${movie.backdrop_path}`,
             title: movie.title || movie.name || 'Untitled',
             overview: movie.overview,
+            release_date: movie.release_date || movie.first_air_date,
+            original_language: movie.original_language,
+            genre_ids: movie.genre_ids,
         });
     };
 

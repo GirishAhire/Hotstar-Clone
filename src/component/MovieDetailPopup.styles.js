@@ -92,3 +92,40 @@ export const CloseButton = styled('button')({
         transform: 'scale(1.1)',
     },
 });
+
+export const ImageInfoOverlay = styled('div')({
+    position: 'absolute',
+    bottom: '0',
+    left: '0',
+    width: '100%',
+    color: '#ffffff',
+    padding: '0.8rem 1rem',
+    fontSize: '1rem',
+    fontFamily:'sans-serif',
+    zIndex: 3,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    gap: '8px',
+
+});
+
+// export const InfoRow = styled('div')({
+//     // display: 'flex',
+//     gap: '1.5rem',
+//     // flexWrap: 'wrap',
+//     // justifyContent: 'flex-start',
+//     // alignItems: 'center',
+//     // padding: '0.8rem 1rem',
+//     color: '#E1E6F0',
+//     fontSize: '1rem',
+// });
+
+export const InfoItem = styled('div')({
+    // backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    // padding: '0.4rem .6rem',
+    borderRadius: '8px',
+    fontSize: '1.2rem',
+    color: '#ffffff',
+    fontWeight: 600,
+});
