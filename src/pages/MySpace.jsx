@@ -7,10 +7,10 @@ import { MySpaceWrapper } from './MySpace.styles';
 function MySpace() {
 
     return (
-        <MySpaceWrapper>
-            <Header />
-            <CenterSection />
-        </MySpaceWrapper>
+            <MySpaceWrapper>
+                <Header />
+                <CenterSection />
+            </MySpaceWrapper>
     );
 }
 

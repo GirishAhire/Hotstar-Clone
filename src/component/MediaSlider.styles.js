@@ -36,7 +36,7 @@ export const Title = styled('h2')({
 export const ScrollContainer = styled('div')({
     display: 'flex',
     flexWrap: 'nowrap',
-    overflow: 'hidden', // ✅ disables both scrollbars
+    overflow: 'hidden',
     scrollBehavior: 'smooth',
     gap: '1rem',
     padding: '0.5rem 0',

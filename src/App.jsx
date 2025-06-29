@@ -13,6 +13,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import Sidebar from './component/Sidebar';
+import Footer from './component/Footer';
 
 const Home = lazy(() => import('./pages/Home'));
 const MySpace = lazy(() => import('./pages/MySpace'));
@@ -42,6 +43,7 @@ function AppRouterLogic() {
           <Route path="/my-space" element={<MySpace />} />
         </Routes>
       </Suspense>
+      <Footer />
     </>
   );
 }
