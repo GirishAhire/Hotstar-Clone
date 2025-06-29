@@ -14,8 +14,7 @@ export const Backdrop = styled('div')({
     overflow: 'hidden',
 });
 
-
-export const PopupWrapper = styled('div')(({ $isVisible }) => ({
+export const PopupWrapper = styled('div')(({ $isVisible, theme }) => ({
     display: $isVisible ? 'flex' : 'none',
     flexDirection: 'column',
     backgroundColor: '#0f1014',
@@ -32,15 +31,15 @@ export const PopupWrapper = styled('div')(({ $isVisible }) => ({
         to: { transform: 'scale(1)', opacity: 1 },
     },
 
-    '@media (max-width: 1024px)': {
+    [theme.breakpoints.down('lg')]: {
         width: '70vw',
     },
-    '@media (max-width: 768px)': {
+    [theme.breakpoints.down('md')]: {
         width: '90vw',
         padding: '16px',
         borderRadius: '12px',
     },
-    '@media (max-width: 480px)': {
+    [theme.breakpoints.down('sm')]: {
         width: '95vw',
         padding: '12px',
     },
@@ -52,14 +51,18 @@ export const ImageContainer = styled('div')({
     overflow: 'hidden',
 });
 
-export const PopupImage = styled('img')({
+export const PopupImage = styled('img')(({ theme }) => ({
     position: 'relative',
     zIndex: 2,
     width: '100%',
     height: '100%',
     objectFit: 'contain',
     borderRadius: '12px',
-});
+
+    [theme.breakpoints.down('sm')]: {
+        maxHeight: '300px',
+    },
+}));
 
 export const Content = styled('div')({
     padding: '0 1rem 1rem 1rem',
@@ -101,31 +104,88 @@ export const ImageInfoOverlay = styled('div')({
     color: '#ffffff',
     padding: '0.8rem 1rem',
     fontSize: '1rem',
-    fontFamily:'sans-serif',
+    fontFamily: 'sans-serif',
     zIndex: 3,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-start',
     gap: '8px',
-
 });
 
-// export const InfoRow = styled('div')({
-//     // display: 'flex',
-//     gap: '1.5rem',
-//     // flexWrap: 'wrap',
-//     // justifyContent: 'flex-start',
-//     // alignItems: 'center',
-//     // padding: '0.8rem 1rem',
-//     color: '#E1E6F0',
-//     fontSize: '1rem',
-// });
-
 export const InfoItem = styled('div')({
-    // backgroundColor: 'rgba(255, 255, 255, 0.2)',
-    // padding: '0.4rem .6rem',
     borderRadius: '8px',
     fontSize: '1.2rem',
     color: '#ffffff',
     fontWeight: 600,
+});
+
+export const ButtonContainer = styled('div')(({ theme }) => ({
+    marginTop: '10px',
+    display: 'flex',
+    gap: '20px',
+    justifyContent: 'flex-start',
+    flexWrap: 'wrap',
+
+    [theme.breakpoints.down('sm')]: {
+        justifyContent: 'center',
+    },
+}));
+
+export const WatchNowButton = styled('button')(({ theme }) => ({
+    background: 'linear-gradient(92.7deg, #1492ff 0%, #0860c4 50%, #eb0066 100%)',
+    color: '#fff',
+    border: 'none',
+    width: '350px',
+    height: '60px',
+    padding: '10px 40px',
+    borderRadius: '8px',
+    fontWeight: 600,
+    fontSize: '1.3rem',
+    cursor: 'pointer',
+    transition: 'background 0.3s',
+
+    '&:hover': {
+        filter: 'brightness(1.1)',
+    },
+
+    [theme.breakpoints.down('sm')]: {
+        width: '100%',
+        fontSize: '1.1rem',
+        padding: '10px',
+    },
+}));
+
+export const WatchlistButton = styled('button')(() => ({
+    backgroundColor: '#ffffff14',
+    color: '#ffffff',
+    border: '0 solid',
+    width: '60px',
+    height: '60px',
+    padding: '10px 20px',
+    borderRadius: '10px',
+    fontSize: '30px',
+    cursor: 'pointer',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    transition: 'background 0.3s, color 0.3s',
+
+    svg: {
+        fontSize: '28px',
+    },
+
+    '&:hover': {
+        backgroundColor: '#ffffff50',
+    },
+}));
+
+export const LeftShadowOverlay = styled('div')({
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '40%',
+    height: '100%',
+    background: 'linear-gradient(to right, rgba(0, 0, 0, 0.5), transparent)',
+    zIndex: 3,
+    pointerEvents: 'none',
 });

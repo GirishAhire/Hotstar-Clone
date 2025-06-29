@@ -9,7 +9,14 @@ import {
     CloseButton,
     ImageInfoOverlay,
     InfoItem,
+    ButtonContainer,
+    WatchNowButton,
+    WatchlistButton,
+    LeftShadowOverlay,
 } from './MovieDetailPopup.styles';
+
+import { FaPlus } from 'react-icons/fa';
+
 
 import Loader from '../component/Loader';
 
@@ -89,17 +96,21 @@ const MovieDetailPopup = ({ movie, onClose }) => {
             <PopupWrapper ref={wrapperRef} $isVisible={isImageLoaded}>
                 <CloseButton onClick={onClose}>&times;</CloseButton>
                 <ImageContainer>
+                    <LeftShadowOverlay />
                     <PopupImage
                         src={movie.imageUrl}
                         alt={movie.title}
                         onLoad={() => setIsImageLoaded(true)}
                     />
                     <ImageInfoOverlay>
-                        
-                            <InfoItem><strong>Year:</strong> {getYear(movie.release_date)}</InfoItem>
-                            <InfoItem><strong>Language:</strong> {getFullLanguageName(movie.original_language)}</InfoItem>
-                            <InfoItem><strong>Genres:</strong> {getGenreNames(movie.genre_ids)}</InfoItem>
 
+                        <InfoItem><strong>Year:</strong> {getYear(movie.release_date)}</InfoItem>
+                        <InfoItem><strong>Language:</strong> {getFullLanguageName(movie.original_language)}</InfoItem>
+                        <InfoItem>{getGenreNames(movie.genre_ids)}</InfoItem>
+                        <ButtonContainer>
+                            <WatchNowButton>Watch Now</WatchNowButton>
+                            <WatchlistButton>+</WatchlistButton>
+                        </ButtonContainer>
                     </ImageInfoOverlay>
 
                 </ImageContainer>
