@@ -6,7 +6,7 @@ export const Backdrop = styled('div')({
     left: 0,
     width: '100vw',
     height: '100vh',
-    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -14,15 +14,15 @@ export const Backdrop = styled('div')({
     overflow: 'hidden',
 });
 
-export const PopupWrapper = styled('div')({
-    display: 'flex',
+
+export const PopupWrapper = styled('div')(({ $isVisible }) => ({
+    display: $isVisible ? 'flex' : 'none',
     flexDirection: 'column',
     backgroundColor: '#0f1014',
     borderRadius: '20px',
     width: '60vw',
     maxHeight: '95vh',
     overflowY: 'auto',
-    // color: '#8f98b2',
     position: 'relative',
     boxShadow: '0 0 25px rgba(0,0,0,0.6)',
     animation: 'fadeIn 0.3s ease-in-out',
@@ -44,30 +44,13 @@ export const PopupWrapper = styled('div')({
         width: '95vw',
         padding: '12px',
     },
-});
+}));
 
 export const ImageContainer = styled('div')({
     position: 'relative',
-    width: '100%',
-    height: '55vh',
     borderRadius: '12px',
     overflow: 'hidden',
-    marginBottom: '1rem',
 });
-
-export const BlurredBackground = styled('div')(({ image }) => ({
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    width: '100%',
-    height: '100%',
-    backgroundImage: `url(${image})`,
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    filter: 'blur(2px) brightness(0.4)',
-    transform: 'scale(1.1)',
-    zIndex: 1,
-}));
 
 export const PopupImage = styled('img')({
     position: 'relative',
@@ -80,13 +63,12 @@ export const PopupImage = styled('img')({
 
 export const Content = styled('div')({
     padding: '0 1rem 1rem 1rem',
-    fontFamily:'sans-serif',
+    fontFamily: 'sans-serif',
 
     '& h2': {
         fontSize: '1.8rem',
         marginBottom: '0.5rem',
         color: '#E1E6F0',
-
     },
     '& p': {
         fontSize: '1.3rem',

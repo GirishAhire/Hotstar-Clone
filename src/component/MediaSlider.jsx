@@ -1,5 +1,13 @@
-import React, { useEffect, useRef, useState, lazy, Suspense } from 'react';
+import React, {
+    useEffect,
+    useRef,
+    useState,
+    lazy,
+    Suspense,
+    useCallback,
+} from 'react';
 import axios from 'axios';
+
 import { ArrowBackIos, ArrowForwardIos } from '@mui/icons-material';
 
 import {
@@ -11,8 +19,8 @@ import {
 } from './PopularMovieList.styles';
 
 import MovieDetailPopup from './MovieDetailPopup';
-
 import Loader from '../component/Loader';
+
 const MovieCard = lazy(() => import('./MovieCard'));
 
 const IMAGE_ORIGINAL_URL = import.meta.env.VITE_IMAGE_ORIGINAL_URL;
@@ -31,29 +39,43 @@ function MediaSlider({ title, apiUrl }) {
     const containerRef = useRef(null);
     const sectionRef = useRef(null);
 
-    const fetchMovies = async (pageNum) => {
-        setIsLoading(true);
-        try {
-            const response = await axios.get(`${apiUrl}?api_key=${API_KEY}&page=${pageNum}`);
-            const newMovies = response.data.results || [];
-
-            if (newMovies.length === 0) {
-                setHasMore(false);
-                return;
-            }
-
-            setMovies((prev) => {
-                const existingIds = new Set(prev.map((m) => m.id));
-                const unique = newMovies.filter((m) => !existingIds.has(m.id));
-                return [...prev, ...unique];
-            });
-
-            setPage(pageNum);
-        } catch (error) {
-            console.error('Error fetching media:', error);
-        }
-        setIsLoading(false);
+    const handleMovieClick = (movie) => {
+        setSelectedMovie({
+            imageUrl: `${IMAGE_ORIGINAL_URL}${movie.backdrop_path}`,
+            title: movie.title || movie.name || 'Untitled',
+            overview: movie.overview,
+        });
     };
+
+
+    const fetchMovies = useCallback(
+        async (pageNum) => {
+            setIsLoading(true);
+            try {
+                const response = await axios.get(
+                    `${apiUrl}?api_key=${API_KEY}&page=${pageNum}`
+                );
+                const newMovies = response.data.results || [];
+
+                if (newMovies.length === 0) {
+                    setHasMore(false);
+                    return;
+                }
+
+                setMovies((prev) => {
+                    const existingIds = new Set(prev.map((m) => m.id));
+                    const unique = newMovies.filter((m) => !existingIds.has(m.id));
+                    return [...prev, ...unique];
+                });
+
+                setPage(pageNum);
+            } catch (error) {
+                console.error('Error fetching media:', error);
+            }
+            setIsLoading(false);
+        },
+        [apiUrl]
+    );
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -80,8 +102,7 @@ function MediaSlider({ title, apiUrl }) {
         if (isVisible && movies.length === 0) {
             fetchMovies(1);
         }
-    }, [isVisible, movies.length]);
-
+    }, [isVisible, movies.length, fetchMovies]);
 
     const scrollLeft = () => {
         containerRef.current?.scrollBy({ left: -1800, behavior: 'smooth' });
@@ -117,15 +138,8 @@ function MediaSlider({ title, apiUrl }) {
                                 <MovieCard
                                     key={movie.id}
                                     imageUrl={`${IMAGE_BASE_URL}${movie.poster_path}`}
-                                    title={movie.title}
-                                    onClick={() =>
-                                        setSelectedMovie({
-                                            imageUrl: `${IMAGE_ORIGINAL_URL}${movie.poster_path}`,
-                                            // imageUrl: `${IMAGE_ORIGINAL_URL}${movie.backdrop_path}`,
-                                            title: movie.original_title || movie.original_name,
-                                            overview: movie.overview,
-                                        })
-                                    }
+                                    title={movie.title || movie.name || 'Untitled'}
+                                    onClick={() => handleMovieClick(movie)}
                                 />
                             ))}
 
@@ -134,6 +148,7 @@ function MediaSlider({ title, apiUrl }) {
                                     <Loader key={`loader-${i}`} />
                                 ))}
                         </Suspense>
+
                         {selectedMovie && (
                             <MovieDetailPopup
                                 movie={selectedMovie}
