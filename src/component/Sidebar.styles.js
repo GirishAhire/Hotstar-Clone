@@ -45,6 +45,8 @@ export const SidebarContainer = styled(Box, {
     maxHeight: '100vh',
     minHeight: '300px',
     overflowY: 'auto',
+    backdropFilter: 'blur(1.5px)',
+    WebkitBackdropFilter: 'blur(1.5px)',
 
     '@media (max-width: 768px)': {
         width: 55,

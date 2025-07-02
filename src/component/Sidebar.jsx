@@ -4,15 +4,16 @@ import { Link } from 'react-router-dom';
 import { Box, List, ListItem, ListItemText } from '@mui/material';
 
 import {
-    Home,
     Search,
-    LiveTv,
-    Movie,
-    SportsSoccer,
-    FlashOn,
+    Tv,
+    VideoCameraBackRounded,
     Category,
-    Person,
+    AccountCircleRounded,
 } from '@mui/icons-material';
+
+import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
+import FastfoodIcon from '@mui/icons-material/Fastfood';
+import DirectionsRunRoundedIcon from '@mui/icons-material/DirectionsRunRounded';
 
 import logo from '../assets/logo.png';
 
@@ -33,14 +34,14 @@ export default function Sidebar() {
 
 
     const menuItems = [
-        { text: 'Home', icon: <Home />, path: '/' },
+        { text: 'Home', icon: <HomeRoundedIcon />, path: '/' },
         { text: 'Search', icon: <Search />, path: '/' },
-        { text: 'TV Shows', icon: <LiveTv />, path: '/' },
-        { text: 'Movies', icon: <Movie />, path: '/' },
-        { text: 'Sports', icon: <SportsSoccer />, path: '/' },
-        { text: 'Sparks', icon: <FlashOn />, path: '/' },
+        { text: 'TV Shows', icon: <Tv />, path: '/' },
+        { text: 'Movies', icon: <FastfoodIcon />, path: '/' },
+        { text: 'Sports', icon: <DirectionsRunRoundedIcon />, path: '/' },
+        { text: 'Sparks', icon: <VideoCameraBackRounded />, path: '/' },
         { text: 'Categories', icon: <Category />, path: '/' },
-        { text: 'My Space', icon: <Person />, path: '/my-space' },
+        { text: 'My Space', icon: <AccountCircleRounded />, path: '/my-space' },
     ];
 
     return (
