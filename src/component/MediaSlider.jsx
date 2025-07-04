@@ -1,3 +1,4 @@
+
 import React, {
     useEffect,
     useRef,
@@ -6,8 +7,8 @@ import React, {
     Suspense,
     useCallback,
 } from 'react';
-import axios from 'axios';
 
+import axios from 'axios';
 import { ArrowBackIos, ArrowForwardIos } from '@mui/icons-material';
 
 import {
@@ -19,7 +20,7 @@ import {
 } from './PopularMovieList.styles';
 
 import MovieDetailPopup from './MovieDetailPopup';
-import Loader from '../component/Loader';
+import Loader from './Loader';
 
 const MovieCard = lazy(() => import('./MovieCard'));
 
@@ -27,7 +28,7 @@ const IMAGE_ORIGINAL_URL = import.meta.env.VITE_IMAGE_ORIGINAL_URL;
 const IMAGE_BASE_URL = import.meta.env.VITE_IMAGE_BASE_URL;
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 
-function MediaSlider({ title, apiUrl }) {
+function MediaSlider({ title, apiUrl, items: externalItems = [] }) {
     const [movies, setMovies] = useState([]);
     const [page, setPage] = useState(1);
     const [visibleCount, setVisibleCount] = useState(7);
@@ -50,9 +51,10 @@ function MediaSlider({ title, apiUrl }) {
         });
     };
 
-
     const fetchMovies = useCallback(
         async (pageNum) => {
+            if (!apiUrl) return;
+
             setIsLoading(true);
             try {
                 const response = await axios.get(
@@ -102,10 +104,10 @@ function MediaSlider({ title, apiUrl }) {
     }, []);
 
     useEffect(() => {
-        if (isVisible && movies.length === 0) {
+        if (isVisible && movies.length === 0 && externalItems.length === 0 && apiUrl) {
             fetchMovies(1);
         }
-    }, [isVisible, movies.length, fetchMovies]);
+    }, [isVisible, movies.length, fetchMovies, externalItems.length, apiUrl]);
 
     const scrollLeft = () => {
         containerRef.current?.scrollBy({ left: -1800, behavior: 'smooth' });
@@ -117,13 +119,20 @@ function MediaSlider({ title, apiUrl }) {
         setVisibleCount((prev) => {
             const nextCount = prev + 7;
 
-            if (nextCount > movies.length - 7 && hasMore && !isLoading) {
+            if (
+                nextCount > movies.length - 7 &&
+                hasMore &&
+                !isLoading &&
+                externalItems.length === 0
+            ) {
                 fetchMovies(page + 1);
             }
 
             return nextCount;
         });
     };
+
+    const dataToRender = externalItems.length > 0 ? externalItems : movies;
 
     return (
         <div ref={sectionRef}>
@@ -137,7 +146,7 @@ function MediaSlider({ title, apiUrl }) {
 
                     <ScrollContainer ref={containerRef}>
                         <Suspense fallback={<Loader />}>
-                            {movies.slice(0, visibleCount).map((movie) => (
+                            {dataToRender.slice(0, visibleCount).map((movie) => (
                                 <MovieCard
                                     key={movie.id}
                                     imageUrl={`${IMAGE_BASE_URL}${movie.poster_path}`}
