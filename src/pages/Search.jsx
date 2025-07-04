@@ -1,10 +1,21 @@
-// src/components/Search.jsx
+
 import React, { useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
-import { SearchContainer, StyledTextField, InputAdornmentStyle } from "./Search.styles";
+import CloseIcon from "@mui/icons-material/Close";
+
+import {
+    SearchContainer,
+    StyledTextField,
+    InputAdornmentStyle,
+    ClearIconButton,
+} from "./Search.styles";
 
 function Search() {
     const [searchQuery, setSearchQuery] = useState("");
+
+    const handleClear = () => {
+        setSearchQuery("");
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -13,10 +24,10 @@ function Search() {
 
     return (
         <SearchContainer>
-            <form onSubmit={handleSubmit} style={{ width: '100%' }}>
+            <form onSubmit={handleSubmit} style={{ width: "100%" }}>
                 <StyledTextField
                     variant="outlined"
-                    placeholder="Search Movies, Shows and More"
+                    placeholder="Movies, shows and more"
                     fullWidth
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
@@ -24,6 +35,17 @@ function Search() {
                         startAdornment: (
                             <InputAdornmentStyle position="start">
                                 <SearchIcon />
+                            </InputAdornmentStyle>
+                        ),
+                        endAdornment: searchQuery && (
+                            <InputAdornmentStyle position="end">
+                                <ClearIconButton
+                                    aria-label="clear"
+                                    onClick={handleClear}
+                                    edge="end"
+                                >
+                                    <CloseIcon />
+                                </ClearIconButton>
                             </InputAdornmentStyle>
                         ),
                     }}
