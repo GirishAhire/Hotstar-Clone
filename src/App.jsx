@@ -17,6 +17,7 @@ import Footer from './component/Footer';
 
 const Home = lazy(() => import('./pages/Home'));
 const MySpace = lazy(() => import('./pages/MySpace'));
+const Search = lazy(() => import('./pages/Search'));
 
 function AppRouterLogic() {
   const navigate = useNavigate();
@@ -41,6 +42,7 @@ function AppRouterLogic() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/my-space" element={<MySpace />} />
+          <Route path="/search" element={<Search />} />
         </Routes>
       </Suspense>
       <Footer />

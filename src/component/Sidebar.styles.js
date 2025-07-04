@@ -85,7 +85,7 @@ export const StyledListItemIcon = styled(ListItemIcon, {
     justifyContent: 'center',
     color: 'inherit',
     '& svg': {
-        fontSize: '2rem',
+        fontSize: '1.8rem',
     },
 
     '@media (max-width: 768px)': {

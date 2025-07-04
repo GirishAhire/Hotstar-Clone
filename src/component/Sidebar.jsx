@@ -35,7 +35,7 @@ export default function Sidebar() {
 
     const menuItems = [
         { text: 'Home', icon: <HomeRoundedIcon />, path: '/' },
-        { text: 'Search', icon: <Search />, path: '/' },
+        { text: 'Search', icon: <Search />, path: '/search' },
         { text: 'TV Shows', icon: <Tv />, path: '/' },
         { text: 'Movies', icon: <FastfoodIcon />, path: '/' },
         { text: 'Sports', icon: <DirectionsRunRoundedIcon />, path: '/' },
