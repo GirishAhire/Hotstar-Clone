@@ -15,6 +15,7 @@ function LazyMediaSliderWrapper({ title }) {
         'Upcoming Movies': '/movie/upcoming',
         'Top Rated': '/movie/top_rated',
         'Popular TV Shows': '/tv/popular',
+        'On The Air': '/tv/on_the_air',
     };
 
     const apiPath = titleToApiMap[title];

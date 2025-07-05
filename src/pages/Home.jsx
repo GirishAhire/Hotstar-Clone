@@ -20,11 +20,12 @@ function Home() {
 
             <ImageComponent />
 
-            <LazyMediaSliderWrapper title="Popular Movies" />
             <LazyMediaSliderWrapper title="Trending Now" />
             <LazyMediaSliderWrapper title="Upcoming Movies" />
-            <LazyMediaSliderWrapper title="Top Rated" />
+            <LazyMediaSliderWrapper title="Popular Movies" />
             <LazyMediaSliderWrapper title="Popular TV Shows" />
+            <LazyMediaSliderWrapper title="Top Rated" />
+            <LazyMediaSliderWrapper title="On The Air" />
 
 
         </div>
