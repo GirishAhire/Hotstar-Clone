@@ -14,6 +14,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import Sidebar from './component/Sidebar';
 import Footer from './component/Footer';
+import NoMatch from './component/NoMatch';
 
 const Home = lazy(() => import('./pages/Home'));
 const MySpace = lazy(() => import('./pages/MySpace'));
@@ -43,6 +44,7 @@ function AppRouterLogic() {
           <Route path="/" element={<Home />} />
           <Route path="/my-space" element={<MySpace />} />
           <Route path="/search" element={<Search />} />
+          <Route path="*" element={<NoMatch/>} />
         </Routes>
       </Suspense>
       <Footer />
