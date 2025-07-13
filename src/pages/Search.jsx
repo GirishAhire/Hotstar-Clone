@@ -1,4 +1,3 @@
-// src/components/Search.jsx
 
 import React, { useState, lazy, Suspense } from "react";
 import axios from "axios";

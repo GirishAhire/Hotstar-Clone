@@ -1,8 +1,4 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-
-import { Box, List, ListItem, ListItemText } from '@mui/material';
-
 import {
     Search,
     Tv,
@@ -24,6 +20,8 @@ import {
     StyledListItemButton,
     StyledListItemIcon,
     TextWrapper,
+    StyledNavLink,
+    StyledListItem,
 } from './Sidebar.styles';
 
 export default function Sidebar() {
@@ -31,7 +29,6 @@ export default function Sidebar() {
 
     const handleMouseEnter = () => setHovered(true);
     const handleMouseLeave = () => setHovered(false);
-
 
     const menuItems = [
         { text: 'Home', icon: <HomeRoundedIcon />, path: '/' },
@@ -55,23 +52,22 @@ export default function Sidebar() {
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
             >
-
-                <List>
+                <ul>
                     {menuItems.map((item) => (
-                        <ListItem key={item.text} disablePadding sx={{ display: 'block' }}>
-                            <Link to={item.path} style={{ textDecoration: 'none', color: 'inherit' }}>
-                                <StyledListItemButton {...(hovered ? { hovered } : {})}>
-                                    <StyledListItemIcon {...(hovered ? { hovered } : {})}>
+                        <StyledListItem key={item.text} disablePadding>
+                            <StyledNavLink to={item.path}>
+                                <StyledListItemButton hovered={hovered}>
+                                    <StyledListItemIcon hovered={hovered}>
                                         {item.icon}
                                     </StyledListItemIcon>
-                                    <TextWrapper {...(hovered ? { hovered } : {})}>
-                                        <ListItemText primary={item.text} />
+                                    <TextWrapper hovered={hovered}>
+                                        <span>{item.text}</span>
                                     </TextWrapper>
                                 </StyledListItemButton>
-                            </Link>
-                        </ListItem>
+                            </StyledNavLink>
+                        </StyledListItem>
                     ))}
-                </List>
+                </ul>
             </SidebarContainer>
         </>
     );

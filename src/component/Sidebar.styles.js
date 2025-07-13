@@ -1,10 +1,12 @@
 import { styled } from '@mui/material/styles';
-import { Box, ListItemButton, ListItemIcon } from '@mui/material';
+import { Box, ListItem, ListItemButton, ListItemIcon } from '@mui/material';
+import { NavLink } from 'react-router-dom';
 
 export const LogoWrapper = styled(Box)({
     position: 'fixed',
-    top: 20,
+    top: 30,
     zIndex: 3000,
+    left: 20,
 
     '@media (max-width: 768px)': {
         top: 15,
@@ -29,13 +31,13 @@ export const LogoImage = styled('img')({
 export const SidebarContainer = styled(Box, {
     shouldForwardProp: (prop) => prop !== 'hovered',
 })(({ hovered }) => ({
-    width: hovered ? 240 : 70,
+    width: hovered ? 270 : 70,
     transition: 'width 0.3s ease',
     overflowX: 'hidden',
     height: 'auto',
     position: 'fixed',
     top: '50%',
-    left: 25,
+    left: 0,
     transform: 'translateY(-50%)',
     color: 'rgba(255, 255, 255, 0.87)',
     zIndex: 1300,
@@ -50,7 +52,7 @@ export const SidebarContainer = styled(Box, {
 
     '@media (max-width: 768px)': {
         width: 55,
-        left: 25,
+        left: 0,
     },
 }));
 
@@ -62,12 +64,10 @@ export const StyledListItemButton = styled(ListItemButton, {
     paddingLeft: hovered ? 30 : 0,
     paddingRight: hovered ? 30 : 0,
     transition: 'all 0.2s',
+
     '&:hover': {
         fontWeight: 'bold',
         transform: 'scale(1.05)',
-        '& .MuiListItemText-primary': {
-            fontWeight: 'bold',
-        },
     },
 
     '@media (max-width: 768px)': {
@@ -84,8 +84,9 @@ export const StyledListItemIcon = styled(ListItemIcon, {
     marginRight: hovered ? 12 : 'auto',
     justifyContent: 'center',
     color: 'inherit',
+
     '& svg': {
-        fontSize: '1.8rem',
+        fontSize: '2rem',
     },
 
     '@media (max-width: 768px)': {
@@ -102,11 +103,32 @@ export const TextWrapper = styled(Box, {
     maxWidth: hovered ? '200px' : 0,
     overflow: 'hidden',
     whiteSpace: 'nowrap',
-    transition: 'opacity 0.3s ease, max-width 0.3s ease',
-    '& .MuiListItemText-primary': {
+    transition: 'opacity 0.3s ease',
+
+    '& span': {
         fontSize: '1.5rem',
     },
+
     '@media (max-width: 768px)': {
         display: 'none',
     },
 }));
+
+export const StyledNavLink = styled(NavLink)(() => ({
+    textDecoration: 'none',
+    color: '#8f98b2',
+
+    '&:hover .MuiListItemIcon-root, &:hover span': {
+        color: '#ffffff',
+    },
+
+    '&.active .MuiListItemIcon-root, &.active span': {
+        color: '#ffffff',
+        fontWeight: 'bold',
+    },
+}));
+
+export const StyledListItem = styled(ListItem)({
+    display: 'block',
+    marginBottom: '3px',
+});
