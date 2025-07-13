@@ -33,8 +33,8 @@ export default function Sidebar() {
     const menuItems = [
         { text: 'Home', icon: <HomeRoundedIcon />, path: '/' },
         { text: 'Search', icon: <Search />, path: '/search' },
-        { text: 'TV Shows', icon: <Tv />, path: '*' },
-        { text: 'Movies', icon: <FastfoodIcon />, path: '*' },
+        { text: 'TV', icon: <Tv />, path: '/TV' },
+        { text: 'Movies', icon: <FastfoodIcon />, path: '/Movies' },
         { text: 'Sports', icon: <DirectionsRunRoundedIcon />, path: '*' },
         { text: 'Sparks', icon: <VideoCameraBackRounded />, path: '*' },
         { text: 'Categories', icon: <Category />, path: '*' },

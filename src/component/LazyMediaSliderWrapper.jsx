@@ -13,9 +13,13 @@ function LazyMediaSliderWrapper({ title }) {
         'Popular Movies': '/movie/popular',
         'Trending Now': '/trending/all/day',
         'Upcoming Movies': '/movie/upcoming',
-        'Top Rated': '/movie/top_rated',
+        'Top Rated Movies': '/movie/top_rated',
+        'Top Rated TV Shows': '/tv/top_rated',
         'Popular TV Shows': '/tv/popular',
         'On The Air': '/tv/on_the_air',
+        'Now Playing': '/movie/now_playing',
+        'Airing Today': '/tv/airing_today',
+
     };
 
     const apiPath = titleToApiMap[title];

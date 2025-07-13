@@ -16,19 +16,24 @@ function Home() {
     }, []);
 
     return (
-        <div>
+        <>
 
             <ImageComponent />
 
             <LazyMediaSliderWrapper title="Trending Now" />
             <LazyMediaSliderWrapper title="Upcoming Movies" />
+            <LazyMediaSliderWrapper title="Now Playing" />
             <LazyMediaSliderWrapper title="Popular Movies" />
+            <LazyMediaSliderWrapper title="Top Rated Movies" />
+
+            <LazyMediaSliderWrapper title="Airing Today" />
             <LazyMediaSliderWrapper title="Popular TV Shows" />
-            <LazyMediaSliderWrapper title="Top Rated" />
             <LazyMediaSliderWrapper title="On The Air" />
+            <LazyMediaSliderWrapper title="Top Rated TV Shows" />
 
 
-        </div>
+
+        </>
     );
 }
 
