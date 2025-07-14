@@ -15,16 +15,11 @@ import {
     LeftShadowOverlay,
 } from './MovieDetailPopup.styles';
 
-import { FaPlus } from 'react-icons/fa';
-
-
 import Loader from '../component/Loader';
 
 const MovieDetailPopup = ({ movie, onClose }) => {
     const wrapperRef = useRef(null);
     const [isImageLoaded, setIsImageLoaded] = useState(false);
-
-
 
     const genreMap = {
         28: 'Action',
@@ -60,7 +55,6 @@ const MovieDetailPopup = ({ movie, onClose }) => {
             .map(id => genreMap[id])
             .filter(Boolean)
             .join(' | ');
-
 
     const getYear = (dateString) => {
         return dateString ? new Date(dateString).getFullYear() : 'N/A';
@@ -103,7 +97,6 @@ const MovieDetailPopup = ({ movie, onClose }) => {
                         onLoad={() => setIsImageLoaded(true)}
                     />
                     <ImageInfoOverlay>
-
                         <InfoItem><strong>Year:</strong> {getYear(movie.release_date)}</InfoItem>
                         <InfoItem><strong>Language:</strong> {getFullLanguageName(movie.original_language)}</InfoItem>
                         <InfoItem>{getGenreNames(movie.genre_ids)}</InfoItem>

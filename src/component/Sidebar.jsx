@@ -8,8 +8,8 @@ import {
 } from '@mui/icons-material';
 
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
-import FastfoodIcon from '@mui/icons-material/Fastfood';
 import DirectionsRunRoundedIcon from '@mui/icons-material/DirectionsRunRounded';
+import MovieCreationRoundedIcon from '@mui/icons-material/MovieCreationRounded';
 
 import logo from '../assets/logo.png';
 
@@ -34,7 +34,7 @@ export default function Sidebar() {
         { text: 'Home', icon: <HomeRoundedIcon />, path: '/' },
         { text: 'Search', icon: <Search />, path: '/search' },
         { text: 'TV', icon: <Tv />, path: '/TV' },
-        { text: 'Movies', icon: <FastfoodIcon />, path: '/Movies' },
+        { text: 'Movies', icon: <MovieCreationRoundedIcon />, path: '/Movies' },
         { text: 'Sports', icon: <DirectionsRunRoundedIcon />, path: '*' },
         { text: 'Sparks', icon: <VideoCameraBackRounded />, path: '*' },
         { text: 'Categories', icon: <Category />, path: '*' },
