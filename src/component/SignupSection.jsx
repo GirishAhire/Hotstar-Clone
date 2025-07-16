@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import {
     InputAdornment,
     Stack,
+    IconButton,
+    Typography
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
@@ -13,29 +14,42 @@ import {
     StyledTitle,
     StyledSubtitle,
     StyledTextField,
-    StyledSubmitButton,
-    StyledSwitchText,
-    StyledVisibilityIcon,
+    StyledSubmitButton
 } from './LoginSection.styles';
 
-function LoginSection({ handleClose, switchToSignUp }) {
-    const navigate = useNavigate();
+function SignupSection({ handleClose, switchToLogin }) {
     const [showPassword, setShowPassword] = useState(false);
-
     const handleClickShowPassword = () => setShowPassword((prev) => !prev);
-    const handleMouseDownPassword = (event) => event.preventDefault();
 
-    const [userData, setUserData] = useState({ email: '', password: '' });
-    const [errors, setErrors] = useState({ email: '', password: '' });
+    const [userData, setUserData] = useState({
+        username: '',
+        email: '',
+        password: ''
+    });
+
+    const [errors, setErrors] = useState({
+        username: '',
+        email: '',
+        password: ''
+    });
 
     const handleChange = (e) => {
         const { name, value } = e.target;
         setUserData((prev) => ({ ...prev, [name]: value }));
     };
 
+    const handleMouseDownPassword = (event) => {
+        event.preventDefault();
+    };
+
     const validateForm = () => {
+        let usernameError = '';
         let emailError = '';
         let passwordError = '';
+
+        if (!userData.username.trim()) {
+            usernameError = 'Username is required';
+        }
 
         if (!userData.email) {
             emailError = 'Email is required';
@@ -49,29 +63,18 @@ function LoginSection({ handleClose, switchToSignUp }) {
             passwordError = 'Password must be at least 6 characters';
         }
 
-        setErrors({ email: emailError, password: passwordError });
+        setErrors({ username: usernameError, email: emailError, password: passwordError });
 
-        return !emailError && !passwordError;
+        return !usernameError && !emailError && !passwordError;
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
         if (!validateForm()) return;
 
-        const storedUser = JSON.parse(localStorage.getItem('userData'));
-
-        if (
-            storedUser &&
-            storedUser.email === userData.email &&
-            storedUser.password === userData.password
-        ) {
-            sessionStorage.setItem('loggedIn', true);
-            handleClose();
-            navigate('/');
-            window.location.reload();
-        } else {
-            alert('Invalid credentials. Please try again.');
-        }
+        localStorage.setItem('userData', JSON.stringify(userData));
+        alert('Account created! You can now log in.');
+        switchToLogin();
     };
 
     return (
@@ -80,12 +83,23 @@ function LoginSection({ handleClose, switchToSignUp }) {
                 <CloseIcon sx={{ fontSize: '2.5rem' }} />
             </StyledCloseIcon>
 
-            <StyledTitle variant="h5">Login to continue</StyledTitle>
-            <StyledSubtitle variant="body1">Enter your credentials to log in</StyledSubtitle>
+            <StyledTitle variant="h5">Create your account</StyledTitle>
+
+            <StyledSubtitle variant="body1">Sign up with your email to start watching</StyledSubtitle>
 
             <StyledBox>
                 <form onSubmit={handleSubmit}>
                     <Stack direction="column" spacing={2}>
+                        <StyledTextField
+                            name="username"
+                            label="Enter your username"
+                            variant="outlined"
+                            value={userData.username}
+                            onChange={handleChange}
+                            error={!!errors.username}
+                            helperText={errors.username}
+                        />
+
                         <StyledTextField
                             name="email"
                             label="Enter your email"
@@ -108,30 +122,36 @@ function LoginSection({ handleClose, switchToSignUp }) {
                             InputProps={{
                                 endAdornment: (
                                     <InputAdornment position="end">
-                                        <StyledVisibilityIcon
+                                        <IconButton
                                             onClick={handleClickShowPassword}
                                             onMouseDown={handleMouseDownPassword}
+                                            sx={{ color: '#8F98B2' }}
                                         >
                                             {showPassword ? <VisibilityOff /> : <Visibility />}
-                                        </StyledVisibilityIcon>
+                                        </IconButton>
                                     </InputAdornment>
                                 ),
                             }}
                         />
 
                         <StyledSubmitButton type="submit" variant="contained">
-                            Log In
+                            Sign Up
                         </StyledSubmitButton>
                     </Stack>
                 </form>
 
-                <StyledSwitchText variant="body2">
-                    Don't have an account?
-                    <span onClick={switchToSignUp}> Sign up</span>
-                </StyledSwitchText>
+                <Typography variant="body2" sx={{ color: '#8F98B2', marginTop: '20px' }}>
+                    Already have an account?{' '}
+                    <span
+                        style={{ color: '#fff', cursor: 'pointer', fontWeight: 500 }}
+                        onClick={switchToLogin}
+                    >
+                        Log in
+                    </span>
+                </Typography>
             </StyledBox>
         </>
     );
 }
 
-export default LoginSection;
+export default SignupSection;

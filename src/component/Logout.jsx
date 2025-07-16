@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { useNavigate } from 'react-router-dom';
 import CloseIcon from '@mui/icons-material/Close';
 import logoutImage from '../assets/Logout.png';
 
@@ -15,10 +15,12 @@ import {
 } from './Logout.styles';
 
 function Logout({ onCancel }) {
+    const navigate = useNavigate();
+
     const handleLogout = () => {
         localStorage.removeItem('userData');
         sessionStorage.removeItem('loggedIn');
-        window.location.reload();
+        navigate('/my-space');
     };
 
     return (

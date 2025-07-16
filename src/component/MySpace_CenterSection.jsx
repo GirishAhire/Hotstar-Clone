@@ -2,7 +2,6 @@ import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { Modal } from '@mui/material';
 
 import mySpaceLoginImage from '../assets/my_space_login_in_jv.png';
-
 import {
     StyledImage,
     Title,
@@ -16,17 +15,25 @@ import {
 import Loader from './Loader';
 
 const LoginSection = lazy(() => import('./LoginSection'));
+const SignupSection = lazy(() => import('./SignupSection'));
 const LogoutConfirm = lazy(() => import('./Logout'));
 
 function MySpace_CenterSection() {
     const [open, setOpen] = useState(false);
     const [logoutModalOpen, setLogoutModalOpen] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [showSignup, setShowSignup] = useState(false);
 
     useEffect(() => {
         const storedUser = localStorage.getItem('userData');
         setIsLoggedIn(!!storedUser);
     }, []);
+
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => {
+        setOpen(false);
+        setShowSignup(false);
+    };
 
     return (
         <>
@@ -58,16 +65,26 @@ function MySpace_CenterSection() {
                 </>
             ) : (
                 <>
-                    <LoginButton onClick={() => setOpen(true)}>
+                    <LoginButton onClick={handleOpen}>
                         <FlexSpan>
                             <TextSpan>Log In</TextSpan>
                         </FlexSpan>
                     </LoginButton>
 
-                    <Modal open={open} onClose={() => setOpen(false)}>
+                    <Modal open={open} onClose={handleClose}>
                         <StyledModalBox>
                             <Suspense fallback={<Loader />}>
-                                <LoginSection handleClose={() => setOpen(false)} />
+                                {showSignup ? (
+                                    <SignupSection
+                                        handleClose={handleClose}
+                                        switchToLogin={() => setShowSignup(false)}
+                                    />
+                                ) : (
+                                    <LoginSection
+                                        handleClose={handleClose}
+                                        switchToSignUp={() => setShowSignup(true)}
+                                    />
+                                )}
                             </Suspense>
                         </StyledModalBox>
                     </Modal>

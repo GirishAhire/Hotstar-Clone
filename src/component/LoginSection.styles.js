@@ -1,5 +1,11 @@
 import styled from 'styled-components';
-import { IconButton, Typography, Box, TextField, Button } from '@mui/material';
+import {
+  IconButton,
+  Typography,
+  Box,
+  TextField,
+  Button,
+} from '@mui/material';
 
 export const StyledBox = styled(Box)`
   position: relative;
@@ -8,7 +14,6 @@ export const StyledBox = styled(Box)`
   align-items: center;
   justify-content: flex-start;
   height: 100%;
-  // padding-top: 35px; 
   text-align: center;
   padding-left: 16px;
   padding-right: 16px;
@@ -41,8 +46,6 @@ export const StyledTextField = styled(TextField)`
   width: 325px;
   background-color: transparent;
   border-radius: 8px;
-  text-align: center;
-
 
   .MuiOutlinedInput-root {
     border-radius: 8px;
@@ -80,6 +83,7 @@ export const StyledSubmitButton = styled(Button)`
   width: 325px;
   height: 45px;
   font-weight: 600;
+  text-transform:none;
   font-size: 1rem;
   padding: 12px;
   border-radius: 8px;
@@ -90,4 +94,20 @@ export const StyledSubmitButton = styled(Button)`
     background: linear-gradient(92.7deg, #1492ff 0%, #0860c4 50%, #eb0066 100%);
     filter: brightness(1.1);
   }
+`;
+
+export const StyledSwitchText = styled(Typography)`
+  color: #8f98b2;
+  margin-top: 30px;
+  font-size: 1rem;
+
+  span {
+    color: #fff;
+    cursor: pointer;
+    font-weight: 500;
+  }
+`;
+
+export const StyledVisibilityIcon = styled(IconButton)`
+  color: #8f98b2;
 `;
