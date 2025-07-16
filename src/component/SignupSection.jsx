@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {
-    InputAdornment,
     Stack,
+    InputAdornment,
     IconButton,
     Typography
 } from '@mui/material';
@@ -14,13 +14,13 @@ import {
     StyledTitle,
     StyledSubtitle,
     StyledTextField,
-    StyledSubmitButton
-} from './LoginSection.styles';
+    StyledSubmitButton,
+    StyledSwitchText,
+    StyledVisibilityIcon
+} from './AuthSection.styles';
 
 function SignupSection({ handleClose, switchToLogin }) {
     const [showPassword, setShowPassword] = useState(false);
-    const handleClickShowPassword = () => setShowPassword((prev) => !prev);
-
     const [userData, setUserData] = useState({
         username: '',
         email: '',
@@ -33,13 +33,12 @@ function SignupSection({ handleClose, switchToLogin }) {
         password: ''
     });
 
+    const handleClickShowPassword = () => setShowPassword((prev) => !prev);
+    const handleMouseDownPassword = (event) => event.preventDefault();
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setUserData((prev) => ({ ...prev, [name]: value }));
-    };
-
-    const handleMouseDownPassword = (event) => {
-        event.preventDefault();
     };
 
     const validateForm = () => {
@@ -64,7 +63,6 @@ function SignupSection({ handleClose, switchToLogin }) {
         }
 
         setErrors({ username: usernameError, email: emailError, password: passwordError });
-
         return !usernameError && !emailError && !passwordError;
     };
 
@@ -84,7 +82,6 @@ function SignupSection({ handleClose, switchToLogin }) {
             </StyledCloseIcon>
 
             <StyledTitle variant="h5">Create your account</StyledTitle>
-
             <StyledSubtitle variant="body1">Sign up with your email to start watching</StyledSubtitle>
 
             <StyledBox>
@@ -122,15 +119,14 @@ function SignupSection({ handleClose, switchToLogin }) {
                             InputProps={{
                                 endAdornment: (
                                     <InputAdornment position="end">
-                                        <IconButton
+                                        <StyledVisibilityIcon
                                             onClick={handleClickShowPassword}
                                             onMouseDown={handleMouseDownPassword}
-                                            sx={{ color: '#8F98B2' }}
                                         >
                                             {showPassword ? <VisibilityOff /> : <Visibility />}
-                                        </IconButton>
+                                        </StyledVisibilityIcon>
                                     </InputAdornment>
-                                ),
+                                )
                             }}
                         />
 
@@ -140,15 +136,10 @@ function SignupSection({ handleClose, switchToLogin }) {
                     </Stack>
                 </form>
 
-                <Typography variant="body2" sx={{ color: '#8F98B2', marginTop: '20px' }}>
-                    Already have an account?{' '}
-                    <span
-                        style={{ color: '#fff', cursor: 'pointer', fontWeight: 500 }}
-                        onClick={switchToLogin}
-                    >
-                        Log in
-                    </span>
-                </Typography>
+                <StyledSwitchText variant="body2">
+                    Already have an account?
+                    <span onClick={switchToLogin}> Log in</span>
+                </StyledSwitchText>
             </StyledBox>
         </>
     );
