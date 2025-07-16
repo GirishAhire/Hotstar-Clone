@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
 import {
     InputAdornment,
     Stack,
@@ -19,9 +18,7 @@ import {
 } from './LoginSection.styles';
 
 function LoginSection({ handleClose }) {
-
     const navigate = useNavigate();
-
     const [showPassword, setShowPassword] = useState(false);
     const handleClickShowPassword = () => setShowPassword((prev) => !prev);
 
@@ -39,8 +36,8 @@ function LoginSection({ handleClose }) {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setUserData((prevData) => ({
-            ...prevData,
+        setUserData((prev) => ({
+            ...prev,
             [name]: value,
         }));
     };
@@ -83,13 +80,11 @@ function LoginSection({ handleClose }) {
         e.preventDefault();
 
         if (validateForm()) {
-            console.log('Form submitted:', userData);
-
             localStorage.setItem('userData', JSON.stringify(userData));
-
             sessionStorage.setItem('loggedIn', true);
-
-            navigate('/');
+            handleClose(); // Close the modal
+            navigate('/'); // Navigate to home or wherever you want
+            window.location.reload(); // Optional: to reflect login immediately
         }
     };
 
@@ -99,16 +94,10 @@ function LoginSection({ handleClose }) {
                 <CloseIcon sx={{ fontSize: '2.5rem' }} />
             </StyledCloseIcon>
 
-            <StyledTitle variant="h5">
-                Login or sign up to continue
-            </StyledTitle>
-
-            <StyledSubtitle variant="body1">
-                Enter your credentials to login
-            </StyledSubtitle>
+            <StyledTitle variant="h5">Login or sign up to continue</StyledTitle>
+            <StyledSubtitle variant="body1">Enter your credentials to login</StyledSubtitle>
 
             <StyledBox>
-
                 <form onSubmit={handleSubmit}>
                     <Stack direction="column" spacing={2}>
                         <StyledTextField
@@ -144,7 +133,6 @@ function LoginSection({ handleClose }) {
                                 endAdornment: (
                                     <InputAdornment position="end">
                                         <IconButton
-                                            aria-label={showPassword ? 'Hide password' : 'Show password'}
                                             onClick={handleClickShowPassword}
                                             onMouseDown={handleMouseDownPassword}
                                             sx={{ color: '#8F98B2' }}

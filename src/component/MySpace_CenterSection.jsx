@@ -28,17 +28,6 @@ function MySpace_CenterSection() {
         setIsLoggedIn(!!storedUser);
     }, []);
 
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
-
-    const handleLogout = () => {
-        localStorage.removeItem('userData');
-        sessionStorage.removeItem('loggedIn');
-        setIsLoggedIn(false);
-        setLogoutModalOpen(false);
-        window.location.reload();
-    };
-
     return (
         <>
             <StyledImage src={mySpaceLoginImage} alt="mySpaceLoginImage" />
@@ -47,7 +36,7 @@ function MySpace_CenterSection() {
 
             <Description>
                 {isLoggedIn
-                    ? 'Enjoy watching content tailored for you.'
+                    ? 'Stream your favorites anytime, just where you left off.'
                     : 'Start watching from where you left off, personalise for kids and more'}
             </Description>
 
@@ -62,26 +51,23 @@ function MySpace_CenterSection() {
                     <Modal open={logoutModalOpen} onClose={() => setLogoutModalOpen(false)}>
                         <StyledModalBox>
                             <Suspense fallback={<Loader />}>
-                                <LogoutConfirm
-                                    onCancel={() => setLogoutModalOpen(false)}
-                                    onLogout={handleLogout}
-                                />
+                                <LogoutConfirm onCancel={() => setLogoutModalOpen(false)} />
                             </Suspense>
                         </StyledModalBox>
                     </Modal>
                 </>
             ) : (
                 <>
-                    <LoginButton onClick={handleOpen}>
+                    <LoginButton onClick={() => setOpen(true)}>
                         <FlexSpan>
                             <TextSpan>Log In</TextSpan>
                         </FlexSpan>
                     </LoginButton>
 
-                    <Modal open={open} onClose={handleClose}>
+                    <Modal open={open} onClose={() => setOpen(false)}>
                         <StyledModalBox>
                             <Suspense fallback={<Loader />}>
-                                <LoginSection handleClose={handleClose} />
+                                <LoginSection handleClose={() => setOpen(false)} />
                             </Suspense>
                         </StyledModalBox>
                     </Modal>

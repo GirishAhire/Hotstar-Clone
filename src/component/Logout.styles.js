@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Typography, Box, Button } from '@mui/material';
+import { Typography, Box, Button, IconButton } from '@mui/material';
 
 export const StyledBox = styled(Box)`
   position: relative;
@@ -41,32 +41,35 @@ export const ButtonGroup = styled.div`
   gap: 16px;
 `;
 
+export const StyledCloseIcon = styled(IconButton)`
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  color: #707a94;
+`;
+
 export const CancelButton = styled(Button)`
-  width: 140px;
-  height: 45px;
+  text-transform: none;
+  width: 275px;
+  height: 60px;
+  padding: 12px;
   font-weight: 600;
-  font-size: 1rem;
+  font-size: 1.2rem;
   border-radius: 8px;
   color: #e1e6f0;
-  border: 2px solid #8f98b2;
-  background: transparent;
+  background: #252833;
 
-  &:hover {
-    background-color: rgba(255, 255, 255, 0.08);
-    border-color: #e1e6f0;
-  }
 `;
 
 export const LogoutButton = styled(Button)`
-  width: 140px;
-  height: 45px;
+  text-transform: none;
+  width: 275px;
+  height: 60px;
   font-weight: 600;
-  font-size: 1rem;
+  font-size: 1.2rem;
+  padding: 12px;
   border-radius: 8px;
   color: #ffffff;
   background: linear-gradient(92.7deg, #1492ff 0%, #0860c4 50%, #eb0066 100%);
 
-  &:hover {
-    filter: brightness(1.1);
-  }
 `;
