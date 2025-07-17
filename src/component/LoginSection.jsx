@@ -66,7 +66,7 @@ function LoginSection({ handleClose, switchToSignUp }) {
         if (matchedUser) {
             localStorage.setItem('currentUser', JSON.stringify(matchedUser));
             sessionStorage.setItem('loggedIn', 'true');
-            handleClose();
+            sessionStorage.setItem('welcomeFrom', 'login');
             navigate('/');
         } else {
             setErrors({

@@ -8,8 +8,7 @@ import {
 } from 'react-router-dom';
 
 import Loader from './component/Loader';
-
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import Sidebar from './component/Sidebar';
@@ -32,8 +31,20 @@ function AppRouterLogic() {
     if (location.pathname === '/' && !isLoggedIn) {
       navigate('/my-space');
     }
-  }, [navigate, location.pathname]);
 
+    const welcomeFrom = sessionStorage.getItem('welcomeFrom');
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+    if (welcomeFrom && currentUser?.username) {
+      if (welcomeFrom === 'login') {
+        toast.success(`Welcome back, ${currentUser.username}! 🎉`);
+      } else if (welcomeFrom === 'signup') {
+        toast.success(`Welcome, ${currentUser.username}! 🎊`);
+      }
+
+      sessionStorage.removeItem('welcomeFrom');
+    }
+  }, [navigate, location.pathname]);
 
   return (
     <>
@@ -43,9 +54,9 @@ function AppRouterLogic() {
           <Route path="/" element={<Home />} />
           <Route path="/my-space" element={<MySpace />} />
           <Route path="/search" element={<Search />} />
-          <Route path="*" element={<NoMatch />} />
           <Route path="/Movies" element={<Movies />} />
           <Route path="/TV" element={<TV />} />
+          <Route path="*" element={<NoMatch />} />
         </Routes>
       </Suspense>
       <Footer />
