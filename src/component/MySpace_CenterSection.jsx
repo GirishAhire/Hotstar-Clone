@@ -25,9 +25,10 @@ function MySpace_CenterSection() {
     const [showSignup, setShowSignup] = useState(false);
 
     useEffect(() => {
-        const storedUser = localStorage.getItem('userData');
-        setIsLoggedIn(!!storedUser);
+        const isLoggedIn = sessionStorage.getItem('loggedIn') === 'true';
+        setIsLoggedIn(isLoggedIn);
     }, []);
+
 
     const handleOpen = () => setOpen(true);
     const handleClose = () => {
@@ -39,7 +40,8 @@ function MySpace_CenterSection() {
         <>
             <StyledImage src={mySpaceLoginImage} alt="mySpaceLoginImage" />
 
-            <Title>Welcome to JioHotstar</Title>
+            <Title>
+                {isLoggedIn? '': 'Welcome to '}JioHotstar</Title>
 
             <Description>
                 {isLoggedIn

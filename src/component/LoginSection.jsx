@@ -22,55 +22,57 @@ function LoginSection({ handleClose, switchToSignUp }) {
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
 
-    const handleClickShowPassword = () => setShowPassword((prev) => !prev);
-    const handleMouseDownPassword = (event) => event.preventDefault();
-
     const [userData, setUserData] = useState({ email: '', password: '' });
     const [errors, setErrors] = useState({ email: '', password: '' });
 
+    const handleClickShowPassword = () => setShowPassword(prev => !prev);
+    const handleMouseDownPassword = (e) => e.preventDefault();
+
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setUserData((prev) => ({ ...prev, [name]: value }));
+        setUserData(prev => ({ ...prev, [name]: value }));
     };
+    //     let emailError = '';
+    //     let passwordError = '';
 
-    const validateForm = () => {
-        let emailError = '';
-        let passwordError = '';
+    //     if (!userData.email) {
+    //         emailError = 'Email is required';
+    //     } else if (!/\S+@\S+\.\S+/.test(userData.email)) {
+    //         emailError = 'Invalid email format';
+    //     }
 
-        if (!userData.email) {
-            emailError = 'Email is required';
-        } else if (!/\S+@\S+\.\S+/.test(userData.email)) {
-            emailError = 'Invalid email format';
-        }
+    //     if (!userData.password) {
+    //         passwordError = 'Password is required';
+    //     } else if (userData.password.length < 6) {
+    //         passwordError = 'Password must be at least 6 characters';
+    //     }
 
-        if (!userData.password) {
-            passwordError = 'Password is required';
-        } else if (userData.password.length < 6) {
-            passwordError = 'Password must be at least 6 characters';
-        }
+    //     setErrors({ email: emailError, password: passwordError });
 
-        setErrors({ email: emailError, password: passwordError });
-
-        return !emailError && !passwordError;
-    };
+    //     return !emailError && !passwordError;
+    // };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (!validateForm()) return;
 
-        const storedUser = JSON.parse(localStorage.getItem('userData'));
+        const storedUsers = JSON.parse(localStorage.getItem('users')) || [];
 
-        if (
-            storedUser &&
-            storedUser.email === userData.email &&
-            storedUser.password === userData.password
-        ) {
-            sessionStorage.setItem('loggedIn', true);
+        const matchedUser = storedUsers.find(
+            (user) =>
+                user.email === userData.email &&
+                user.password === userData.password
+        );
+
+        if (matchedUser) {
+            localStorage.setItem('currentUser', JSON.stringify(matchedUser));
+            sessionStorage.setItem('loggedIn', 'true');
             handleClose();
             navigate('/');
-            window.location.reload();
         } else {
-            alert('Invalid credentials. Please try again.');
+            setErrors({
+                email: 'Invalid credentials',
+                password: 'Invalid credentials',
+            });
         }
     };
 

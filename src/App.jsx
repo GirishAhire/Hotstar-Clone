@@ -27,16 +27,13 @@ function AppRouterLogic() {
   const location = useLocation();
 
   useEffect(() => {
-    const storedUser = localStorage.getItem('userData');
+    const isLoggedIn = sessionStorage.getItem('loggedIn') === 'true';
 
-    if (location.pathname === '/') {
-      if (storedUser) {
-        navigate('/');
-      } else {
-        navigate('/my-space');
-      }
+    if (location.pathname === '/' && !isLoggedIn) {
+      navigate('/my-space');
     }
   }, [navigate, location.pathname]);
+
 
   return (
     <>
@@ -46,9 +43,9 @@ function AppRouterLogic() {
           <Route path="/" element={<Home />} />
           <Route path="/my-space" element={<MySpace />} />
           <Route path="/search" element={<Search />} />
-          <Route path="*" element={<NoMatch/>} />
-          <Route path="/Movies" element={<Movies/>} />
-          <Route path="/TV" element={<TV/>} />
+          <Route path="*" element={<NoMatch />} />
+          <Route path="/Movies" element={<Movies />} />
+          <Route path="/TV" element={<TV />} />
         </Routes>
       </Suspense>
       <Footer />

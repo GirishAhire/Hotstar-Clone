@@ -18,9 +18,9 @@ function Logout({ onCancel }) {
     const navigate = useNavigate();
 
     const handleLogout = () => {
-        localStorage.removeItem('userData');
+        localStorage.removeItem('currentUser');
         sessionStorage.removeItem('loggedIn');
-        navigate('/my-space');
+        navigate('/');
     };
 
     return (

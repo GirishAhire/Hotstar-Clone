@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import {
     Stack,
     InputAdornment,
-    IconButton,
-    Typography
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
@@ -19,7 +17,10 @@ import {
     StyledVisibilityIcon
 } from './AuthSection.styles';
 
+import { useNavigate } from 'react-router-dom';
+
 function SignupSection({ handleClose, switchToLogin }) {
+    const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
     const [userData, setUserData] = useState({
         username: '',
@@ -39,6 +40,10 @@ function SignupSection({ handleClose, switchToLogin }) {
     const handleChange = (e) => {
         const { name, value } = e.target;
         setUserData((prev) => ({ ...prev, [name]: value }));
+
+        if (name === 'email' && errors.email) {
+            setErrors((prev) => ({ ...prev, email: '' }));
+        }
     };
 
     const validateForm = () => {
@@ -68,11 +73,26 @@ function SignupSection({ handleClose, switchToLogin }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
         if (!validateForm()) return;
 
-        localStorage.setItem('userData', JSON.stringify(userData));
-        alert('Account created! You can now log in.');
-        switchToLogin();
+        const existingUsers = JSON.parse(localStorage.getItem('users')) || [];
+
+        const userExists = existingUsers.some((user) => user.email === userData.email);
+        if (userExists) {
+            setErrors((prev) => ({
+                ...prev,
+                email: 'This email is already registered',
+            }));
+            return;
+        }
+
+        const updatedUsers = [...existingUsers, userData];
+        localStorage.setItem('users', JSON.stringify(updatedUsers));
+        localStorage.setItem('currentUser', JSON.stringify(userData));
+        sessionStorage.setItem('loggedIn', true);
+
+        navigate('/');
     };
 
     return (
