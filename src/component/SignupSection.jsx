@@ -90,8 +90,9 @@ function SignupSection({ handleClose, switchToLogin }) {
         const updatedUsers = [...existingUsers, userData];
         localStorage.setItem('users', JSON.stringify(updatedUsers));
         localStorage.setItem('currentUser', JSON.stringify(userData));
-        sessionStorage.setItem('loggedIn', true);
-        sessionStorage.setItem('welcomeFrom', 'signup');
+        sessionStorage.setItem('loggedIn', 'true');
+        sessionStorage.setItem('authStatus', 'signup');
+
         navigate('/');
     };
 

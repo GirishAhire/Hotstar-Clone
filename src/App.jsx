@@ -32,17 +32,19 @@ function AppRouterLogic() {
       navigate('/my-space');
     }
 
-    const welcomeFrom = sessionStorage.getItem('welcomeFrom');
+    const authStatus = sessionStorage.getItem('authStatus');
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
-    if (welcomeFrom && currentUser?.username) {
-      if (welcomeFrom === 'login') {
+    if (authStatus && currentUser?.username) {
+      if (authStatus === 'login') {
+        toast.success('Login successful!');
         toast.success(`Welcome back, ${currentUser.username}! 🎉`);
-      } else if (welcomeFrom === 'signup') {
+      } else if (authStatus === 'signup') {
+        toast.success('Signup successful!');
         toast.success(`Welcome, ${currentUser.username}! 🎊`);
       }
 
-      sessionStorage.removeItem('welcomeFrom');
+      sessionStorage.removeItem('authStatus');
     }
   }, [navigate, location.pathname]);
 
