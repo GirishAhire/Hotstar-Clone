@@ -15,6 +15,9 @@ import {
     LeftShadowOverlay,
 } from './MovieDetailPopup.styles';
 
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+
+
 import Loader from '../component/Loader';
 
 const MovieDetailPopup = ({ movie, onClose }) => {
@@ -101,7 +104,9 @@ const MovieDetailPopup = ({ movie, onClose }) => {
                         <InfoItem><strong>Language:</strong> {getFullLanguageName(movie.original_language)}</InfoItem>
                         <InfoItem>{getGenreNames(movie.genre_ids)}</InfoItem>
                         <ButtonContainer>
-                            <WatchNowButton>Watch Now</WatchNowButton>
+                            <WatchNowButton>
+                                <PlayArrowIcon />
+                                Watch Now</WatchNowButton>
                             <WatchlistButton>+</WatchlistButton>
                         </ButtonContainer>
                     </ImageInfoOverlay>

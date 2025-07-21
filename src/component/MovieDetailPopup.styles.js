@@ -144,6 +144,11 @@ export const WatchNowButton = styled('button')(({ theme }) => ({
     cursor: 'pointer',
     transition: 'background 0.3s',
 
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: '10px',
+
     '&:hover': {
         filter: 'brightness(1.1)',
     },
@@ -154,6 +159,7 @@ export const WatchNowButton = styled('button')(({ theme }) => ({
         padding: '10px',
     },
 }));
+
 
 export const WatchlistButton = styled('button')(() => ({
     backgroundColor: '#ffffff14',
