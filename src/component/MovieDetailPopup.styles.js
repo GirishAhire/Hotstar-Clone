@@ -113,11 +113,13 @@ export const ImageInfoOverlay = styled('div')({
 });
 
 export const InfoItem = styled('div')({
-    borderRadius: '8px',
-    fontSize: '1.2rem',
+    fontSize: '1.1rem',
     color: '#ffffff',
-    fontWeight: 600,
+    fontWeight: 500,
+    display: 'flex',
+    flexWrap: 'wrap',
 });
+
 
 export const ButtonContainer = styled('div')(({ theme }) => ({
     marginTop: '10px',

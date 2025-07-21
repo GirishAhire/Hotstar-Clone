@@ -100,17 +100,21 @@ const MovieDetailPopup = ({ movie, onClose }) => {
                         onLoad={() => setIsImageLoaded(true)}
                     />
                     <ImageInfoOverlay>
-                        <InfoItem><strong>Year:</strong> {getYear(movie.release_date)}</InfoItem>
-                        <InfoItem><strong>Language:</strong> {getFullLanguageName(movie.original_language)}</InfoItem>
-                        <InfoItem>{getGenreNames(movie.genre_ids)}</InfoItem>
+                        <InfoItem>
+                            {getYear(movie.release_date)} &nbsp;•&nbsp; U/A 16+
+                            &nbsp;•&nbsp; {getFullLanguageName(movie.original_language)}
+                        </InfoItem>
+                        <InfoItem>
+                            {getGenreNames(movie.genre_ids)}
+                        </InfoItem>
                         <ButtonContainer>
                             <WatchNowButton>
                                 <PlayArrowIcon />
-                                Watch Now</WatchNowButton>
+                                Watch Now
+                            </WatchNowButton>
                             <WatchlistButton>+</WatchlistButton>
                         </ButtonContainer>
                     </ImageInfoOverlay>
-
                 </ImageContainer>
                 <Content>
                     <h2>{movie.title}</h2>
