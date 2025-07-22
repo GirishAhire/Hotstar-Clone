@@ -28,12 +28,18 @@ function AppRouterLogic() {
   useEffect(() => {
     const isLoggedIn = sessionStorage.getItem('loggedIn') === 'true';
 
-    if (location.pathname === '/' && !isLoggedIn) {
-      navigate('/my-space');
+    if (!isLoggedIn && location.pathname === '/') {
+      navigate('/my-space', { replace: true });
     }
 
+
     const authStatus = sessionStorage.getItem('authStatus');
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    let currentUser = null;
+    try {
+      currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    } catch (e) {
+      console.error('Invalid user JSON'+ e);
+    }
 
     if (authStatus && currentUser?.username) {
       if (authStatus === 'login') {
@@ -56,8 +62,8 @@ function AppRouterLogic() {
           <Route path="/" element={<Home />} />
           <Route path="/my-space" element={<MySpace />} />
           <Route path="/search" element={<Search />} />
-          <Route path="/Movies" element={<Movies />} />
-          <Route path="/TV" element={<TV />} />
+          <Route path="/movies" element={<Movies />} />
+          <Route path="/tv" element={<TV />} />
           <Route path="*" element={<NoMatch />} />
         </Routes>
       </Suspense>
