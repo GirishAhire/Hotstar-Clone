@@ -48,6 +48,21 @@ Hoster Clone is a responsive and modern movie streaming web application inspired
 
 ### 1️⃣ Clone the Repository
 
-```bash
-git clone https://github.com/your-username/hoster-clone.git
-npm run dev
+- git clone https://github.com/your-username/hoster-clone.git
+- cd hoster-clone 
+
+### 2️⃣ Install Dependencies
+
+- npm install
+
+### 3️⃣ Set up Environment Variables
+
+- VITE_TMDB_API_KEY=your_tmdb_api_key
+- VITE_TMDB_BASE_URL=https://api.themoviedb.org/3
+- VITE_IMAGE_BASE_URL=https://image.tmdb.org/t/p/w500
+- VITE_IMAGE_ORIGINAL_URL=https://image.tmdb.org/t/p/original
+
+### 4️⃣ Run the Development Server
+
+- npm run dev
+
