@@ -15,7 +15,7 @@ import {
     StyledSubmitButton,
     StyledSwitchText,
     StyledVisibilityIcon
-} from './AuthSection.styles';
+} from './SignupSection.styles';
 
 import { useNavigate } from 'react-router-dom';
 

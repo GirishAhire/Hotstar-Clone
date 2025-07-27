@@ -18,21 +18,29 @@ Hoster Clone is a responsive and modern movie streaming web application inspired
 - 🎬 **TMDB API** (for real-time movie/TV data)
 - 💤 **React Lazy + Suspense** (for code-splitting and performance)
 - 🔐 **.env Variables** for secure API keys
+- 📦 **LocalStorage / SessionStorage** for auth simulation
+- 🔔 **React Toastify** for toast notifications
 
 ---
 
 ## ✨ Features
 
+- 🔐 **User Authentication** (Login / Signup simulation)
+  - Email/password-based
+  - Form validation with error handling
+  - Stores users in localStorage
+  - Session-based login state with welcome message
+- 🔔 Toast notifications for login/signup success
+- 🙋 Personalized welcome message on login/signup
 - 🔍 **Search** for Movies, TV Shows, and Series (via `/search/multi`)
 - 🎞️ Horizontal scrollable sliders:
-  - Trending
-  - Top Rated
-  - Upcoming
-  - Popular TV Shows
+  - Trending
+  - Top Rated
+  - Upcoming
+  - Popular TV Shows
 - 📦 Lazy loading of `MediaSlider` using `IntersectionObserver`
 - 🖼️ Movie detail modal with backdrop & metadata
 - ⚡ Fast and responsive UI optimized for all screen sizes
-
 
 ---
 
@@ -40,21 +48,6 @@ Hoster Clone is a responsive and modern movie streaming web application inspired
 
 ### 1️⃣ Clone the Repository
 
-- git clone https://github.com/your-username/hoster-clone.git
-- cd hoster-clone 
-
-### 2️⃣ Install Dependencies
-
-- npm install
-
-### 3️⃣ Set up Environment Variables
-
-- VITE_TMDB_API_KEY=your_tmdb_api_key
-- VITE_TMDB_BASE_URL=https://api.themoviedb.org/3
-- VITE_IMAGE_BASE_URL=https://image.tmdb.org/t/p/w500
-- VITE_IMAGE_ORIGINAL_URL=https://image.tmdb.org/t/p/original
-
-### 4️⃣ Run the Development Server
-
-- npm run dev
-
+```bash
+git clone https://github.com/your-username/hoster-clone.git
+npm run dev
