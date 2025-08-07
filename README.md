@@ -18,21 +18,29 @@ Hoster Clone is a responsive and modern movie streaming web application inspired
 - 🎬 **TMDB API** (for real-time movie/TV data)
 - 💤 **React Lazy + Suspense** (for code-splitting and performance)
 - 🔐 **.env Variables** for secure API keys
+- 📦 **LocalStorage / SessionStorage** for auth simulation
+- 🔔 **React Toastify** for toast notifications
 
 ---
 
 ## ✨ Features
 
+- 🔐 **User Authentication** (Login / Signup simulation)
+  - Email/password-based
+  - Form validation with error handling
+  - Stores users in localStorage
+  - Session-based login state with welcome message
+- 🔔 Toast notifications for login/signup success
+- 🙋 Personalized welcome message on login/signup
 - 🔍 **Search** for Movies, TV Shows, and Series (via `/search/multi`)
 - 🎞️ Horizontal scrollable sliders:
-  - Trending
-  - Top Rated
-  - Upcoming
-  - Popular TV Shows
+  - Trending
+  - Top Rated
+  - Upcoming
+  - Popular TV Shows
 - 📦 Lazy loading of `MediaSlider` using `IntersectionObserver`
 - 🖼️ Movie detail modal with backdrop & metadata
 - ⚡ Fast and responsive UI optimized for all screen sizes
-
 
 ---
 

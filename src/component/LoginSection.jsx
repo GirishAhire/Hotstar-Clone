@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
-
 import {
     InputAdornment,
     Stack,
-    IconButton
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
@@ -16,81 +13,67 @@ import {
     StyledTitle,
     StyledSubtitle,
     StyledTextField,
-    StyledSubmitButton
+    StyledSubmitButton,
+    StyledSwitchText,
+    StyledVisibilityIcon,
 } from './LoginSection.styles';
 
-function LoginSection({ handleClose }) {
-
+function LoginSection({ handleClose, switchToSignUp }) {
     const navigate = useNavigate();
-
     const [showPassword, setShowPassword] = useState(false);
-    const handleClickShowPassword = () => setShowPassword((prev) => !prev);
 
-    const [userData, setUserData] = useState({
-        username: '',
-        email: '',
-        password: ''
-    });
+    const [userData, setUserData] = useState({ email: '', password: '' });
+    const [errors, setErrors] = useState({ email: '', password: '' });
 
-    const [errors, setErrors] = useState({
-        username: '',
-        email: '',
-        password: ''
-    });
+    const handleClickShowPassword = () => setShowPassword(prev => !prev);
+    const handleMouseDownPassword = (e) => e.preventDefault();
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setUserData((prevData) => ({
-            ...prevData,
-            [name]: value,
-        }));
+        setUserData(prev => ({ ...prev, [name]: value }));
     };
+    //     let emailError = '';
+    //     let passwordError = '';
 
-    const handleMouseDownPassword = (event) => {
-        event.preventDefault();
-    };
+    //     if (!userData.email) {
+    //         emailError = 'Email is required';
+    //     } else if (!/\S+@\S+\.\S+/.test(userData.email)) {
+    //         emailError = 'Invalid email format';
+    //     }
 
-    const validateForm = () => {
-        let usernameError = '';
-        let emailError = '';
-        let passwordError = '';
+    //     if (!userData.password) {
+    //         passwordError = 'Password is required';
+    //     } else if (userData.password.length < 6) {
+    //         passwordError = 'Password must be at least 6 characters';
+    //     }
 
-        if (!userData.username.trim()) {
-            usernameError = 'Username is required';
-        }
+    //     setErrors({ email: emailError, password: passwordError });
 
-        if (!userData.email) {
-            emailError = 'Email is required';
-        } else if (!/\S+@\S+\.\S+/.test(userData.email)) {
-            emailError = 'Invalid email format';
-        }
-
-        if (!userData.password) {
-            passwordError = 'Password is required';
-        } else if (userData.password.length < 6) {
-            passwordError = 'Password must be at least 6 characters';
-        }
-
-        setErrors({
-            username: usernameError,
-            email: emailError,
-            password: passwordError
-        });
-
-        return !usernameError && !emailError && !passwordError;
-    };
+    //     return !emailError && !passwordError;
+    // };
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        if (validateForm()) {
-            console.log('Form submitted:', userData);
+        const storedUsers = JSON.parse(localStorage.getItem('users')) || [];
 
-            localStorage.setItem('userData', JSON.stringify(userData));
+        const matchedUser = storedUsers.find(
+            (user) =>
+                user.email === userData.email &&
+                user.password === userData.password
+        );
 
-            sessionStorage.setItem('loggedIn', true);
+        if (matchedUser) {
+            localStorage.setItem('currentUser', JSON.stringify(matchedUser));
+            sessionStorage.setItem('loggedIn', 'true');
+            sessionStorage.setItem('authStatus', 'login');
 
             navigate('/');
+        } else {
+            setErrors({
+                email: 'Invalid credentials',
+                password: 'Invalid credentials',
+            });
         }
     };
 
@@ -100,28 +83,12 @@ function LoginSection({ handleClose }) {
                 <CloseIcon sx={{ fontSize: '2.5rem' }} />
             </StyledCloseIcon>
 
-            <StyledTitle variant="h5">
-                Login or sign up to continue
-            </StyledTitle>
-
-            <StyledSubtitle variant="body1">
-                Enter your credentials to login
-            </StyledSubtitle>
+            <StyledTitle variant="h5">Login to continue</StyledTitle>
+            <StyledSubtitle variant="body1">Enter your credentials to log in</StyledSubtitle>
 
             <StyledBox>
-
                 <form onSubmit={handleSubmit}>
                     <Stack direction="column" spacing={2}>
-                        <StyledTextField
-                            name="username"
-                            label="Enter your username"
-                            variant="outlined"
-                            value={userData.username}
-                            onChange={handleChange}
-                            error={!!errors.username}
-                            helperText={errors.username}
-                        />
-
                         <StyledTextField
                             name="email"
                             label="Enter your email"
@@ -144,24 +111,27 @@ function LoginSection({ handleClose }) {
                             InputProps={{
                                 endAdornment: (
                                     <InputAdornment position="end">
-                                        <IconButton
-                                            aria-label={showPassword ? 'Hide password' : 'Show password'}
+                                        <StyledVisibilityIcon
                                             onClick={handleClickShowPassword}
                                             onMouseDown={handleMouseDownPassword}
-                                            sx={{ color: '#8F98B2' }}
                                         >
                                             {showPassword ? <VisibilityOff /> : <Visibility />}
-                                        </IconButton>
+                                        </StyledVisibilityIcon>
                                     </InputAdornment>
                                 ),
                             }}
                         />
 
                         <StyledSubmitButton type="submit" variant="contained">
-                            Submit
+                            Log In
                         </StyledSubmitButton>
                     </Stack>
                 </form>
+
+                <StyledSwitchText variant="body2">
+                    Don't have an account?
+                    <span onClick={switchToSignUp}> Sign up</span>
+                </StyledSwitchText>
             </StyledBox>
         </>
     );

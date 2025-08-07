@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { Modal } from '@mui/material';
-import LoginSection from './LoginSection';
-import mySpaceLoginImage from '../assets/my_space_login_in_jv.png';
 
+import mySpaceLoginImage from '../assets/my_space_login_in_jv.png';
 import {
     StyledImage,
     Title,
@@ -13,32 +12,86 @@ import {
     StyledModalBox
 } from './MySpace_CenterSection.styles';
 
+import Loader from './Loader';
+
+const LoginSection = lazy(() => import('./LoginSection'));
+const SignupSection = lazy(() => import('./SignupSection'));
+const LogoutConfirm = lazy(() => import('./Logout'));
+
 function MySpace_CenterSection() {
     const [open, setOpen] = useState(false);
+    const [logoutModalOpen, setLogoutModalOpen] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [showSignup, setShowSignup] = useState(false);
+
+    useEffect(() => {
+        const isLoggedIn = sessionStorage.getItem('loggedIn') === 'true';
+        setIsLoggedIn(isLoggedIn);
+    }, []);
+
+
     const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
+    const handleClose = () => {
+        setOpen(false);
+        setShowSignup(false);
+    };
 
     return (
         <>
             <StyledImage src={mySpaceLoginImage} alt="mySpaceLoginImage" />
 
-            <Title>Login to JioHotstar</Title>
+            <Title>
+                {isLoggedIn? '': 'Welcome to '}JioHotstar</Title>
 
             <Description>
-                Start watching from where you left off, personalise for kids and more
+                {isLoggedIn
+                    ? 'Stream your favorites anytime, just where you left off.'
+                    : 'Start watching from where you left off, personalise for kids and more'}
             </Description>
 
-            <LoginButton onClick={handleOpen}>
-                <FlexSpan>
-                    <TextSpan>Log In</TextSpan>
-                </FlexSpan>
-            </LoginButton>
+            {isLoggedIn ? (
+                <>
+                    <LoginButton onClick={() => setLogoutModalOpen(true)}>
+                        <FlexSpan>
+                            <TextSpan>Log out</TextSpan>
+                        </FlexSpan>
+                    </LoginButton>
 
-            <Modal open={open} onClose={handleClose}>
-                <StyledModalBox>
-                    <LoginSection handleClose={handleClose} />
-                </StyledModalBox>
-            </Modal>
+                    <Modal open={logoutModalOpen} onClose={() => setLogoutModalOpen(false)}>
+                        <StyledModalBox>
+                            <Suspense fallback={<Loader />}>
+                                <LogoutConfirm onCancel={() => setLogoutModalOpen(false)} />
+                            </Suspense>
+                        </StyledModalBox>
+                    </Modal>
+                </>
+            ) : (
+                <>
+                    <LoginButton onClick={handleOpen}>
+                        <FlexSpan>
+                            <TextSpan>Log In</TextSpan>
+                        </FlexSpan>
+                    </LoginButton>
+
+                    <Modal open={open} onClose={handleClose}>
+                        <StyledModalBox>
+                            <Suspense fallback={<Loader />}>
+                                {showSignup ? (
+                                    <SignupSection
+                                        handleClose={handleClose}
+                                        switchToLogin={() => setShowSignup(false)}
+                                    />
+                                ) : (
+                                    <LoginSection
+                                        handleClose={handleClose}
+                                        switchToSignUp={() => setShowSignup(true)}
+                                    />
+                                )}
+                            </Suspense>
+                        </StyledModalBox>
+                    </Modal>
+                </>
+            )}
         </>
     );
 }

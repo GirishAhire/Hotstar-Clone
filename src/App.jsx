@@ -8,8 +8,7 @@ import {
 } from 'react-router-dom';
 
 import Loader from './component/Loader';
-
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import Sidebar from './component/Sidebar';
@@ -27,14 +26,31 @@ function AppRouterLogic() {
   const location = useLocation();
 
   useEffect(() => {
-    const storedUser = localStorage.getItem('userData');
+    const isLoggedIn = sessionStorage.getItem('loggedIn') === 'true';
 
-    if (location.pathname === '/') {
-      if (storedUser) {
-        navigate('/');
-      } else {
-        navigate('/my-space');
+    if (!isLoggedIn && location.pathname === '/') {
+      navigate('/my-space', { replace: true });
+    }
+
+
+    const authStatus = sessionStorage.getItem('authStatus');
+    let currentUser = null;
+    try {
+      currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    } catch (e) {
+      console.error('Invalid user JSON'+ e);
+    }
+
+    if (authStatus && currentUser?.username) {
+      if (authStatus === 'login') {
+        toast.success('Login successful!');
+        toast.success(`Welcome back, ${currentUser.username}! 🎉`);
+      } else if (authStatus === 'signup') {
+        toast.success('Signup successful!');
+        toast.success(`Welcome, ${currentUser.username}! 🎊`);
       }
+
+      sessionStorage.removeItem('authStatus');
     }
   }, [navigate, location.pathname]);
 
@@ -46,9 +62,9 @@ function AppRouterLogic() {
           <Route path="/" element={<Home />} />
           <Route path="/my-space" element={<MySpace />} />
           <Route path="/search" element={<Search />} />
-          <Route path="*" element={<NoMatch/>} />
-          <Route path="/Movies" element={<Movies/>} />
-          <Route path="/TV" element={<TV/>} />
+          <Route path="/movies" element={<Movies />} />
+          <Route path="/tv" element={<TV />} />
+          <Route path="*" element={<NoMatch />} />
         </Routes>
       </Suspense>
       <Footer />

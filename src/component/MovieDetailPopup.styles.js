@@ -113,11 +113,13 @@ export const ImageInfoOverlay = styled('div')({
 });
 
 export const InfoItem = styled('div')({
-    borderRadius: '8px',
-    fontSize: '1.2rem',
+    fontSize: '1.1rem',
     color: '#ffffff',
-    fontWeight: 600,
+    fontWeight: 500,
+    display: 'flex',
+    flexWrap: 'wrap',
 });
+
 
 export const ButtonContainer = styled('div')(({ theme }) => ({
     marginTop: '10px',
@@ -144,6 +146,11 @@ export const WatchNowButton = styled('button')(({ theme }) => ({
     cursor: 'pointer',
     transition: 'background 0.3s',
 
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: '10px',
+
     '&:hover': {
         filter: 'brightness(1.1)',
     },
@@ -154,6 +161,7 @@ export const WatchNowButton = styled('button')(({ theme }) => ({
         padding: '10px',
     },
 }));
+
 
 export const WatchlistButton = styled('button')(() => ({
     backgroundColor: '#ffffff14',
